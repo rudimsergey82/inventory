@@ -37,7 +37,7 @@
                         <a class="nav-link" href="#">Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
+                        <a class="nav-link" href="{{url('item')}}">Item</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href={{url('addItem')}}>Add item</a>
@@ -54,9 +54,10 @@
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </li>--}}
+                </ul>
 
                         <!-- Right Side Of Navbar -->
-                       {{-- <ul class="nav navbar-nav navbar-right">--}}
+                        <ul class="nav navbar-nav navbar-right">
                             <!-- Authentication Links -->
                             @if (Auth::guest())
                                 <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
@@ -82,16 +83,14 @@
                                     </ul>
                                 </li>
                             @endif
-                        {{--</ul>--}}
+                        </ul>
                 </ul>
             </div>
         </nav>
     </div>
 
 @yield('content')
-@yield('addItemForm')
-@yield('about')
-@section('auth')
+
 <!-- Site footer -->
     <footer class="footer">
         <p>&copy; Company A-level "Team OLD School" 2017</p>
@@ -110,5 +109,6 @@
 <script src={{url("js/bootstrap.min.js")}}></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../../../../assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

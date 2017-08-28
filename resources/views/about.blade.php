@@ -1,6 +1,6 @@
 @extends('layouts.pageTemplate')
 
-@section('about')
+@section('content')
 <h1>{{ $header }}</h1>
 <h1>{{ $message }}</h1>
 {{--<div>

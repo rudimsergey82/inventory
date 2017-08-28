@@ -1,10 +1,10 @@
 @extends('layouts.pageTemplate')
 
-@section('addItemForm')
+@section('content')
 <div class="container">
     <div class="body_item_form">
         <h2>Form add item</h2>
-        <form class="form-horizontal" method="post" action="#">
+        <form class="form-horizontal-item" method="post" action="#">
             <label>Name item</label>
             <input type="text" class="form-item">
             <label>Identification number item</label>
@@ -25,6 +25,8 @@
             <label>Date input use item</label>
             <input type="text" class="form-item">
             <br>
+            <label>Date output use item</label>
+            <input type="text" class="form-item">
             <label>Date output use item</label>
             <input type="text" class="form-item">
         </form>

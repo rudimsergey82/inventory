@@ -9,6 +9,13 @@ class IndexController extends Controller
     //
     public function index()
     {
-        return view('page');
+        if (view()->exists('page')){
+            return view('page');
+        }
+        abort(404);
     }
+
+/*    public function getItem(){
+        return view('showItem');
+    }*/
 }

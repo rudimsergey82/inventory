@@ -25,3 +25,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/addItem', 'AddItemFormController@index');
 
 Route::get('/', 'IndexController@index');
+
+Route::get('item', 'ItemController@index');

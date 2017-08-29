@@ -27,3 +27,5 @@ Route::get('/addItem', 'AddItemFormController@index');
 Route::get('/', 'IndexController@index');
 
 Route::get('item', 'ItemController@index');
+
+Route::get('place', 'PlaceController@index');

@@ -15,14 +15,14 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name_item');
-            $table->bigInteger('identification_number_item')->unique();
-            $table->string('serial_number_item');
+            $table->string('name');
+            $table->bigInteger('identification_number')->unique();
+            $table->string('serial_number');
             $table->string('specifications');
-            $table->date('day_create_item');
-            $table->date('date_buy_item');
-            $table->decimal('coast_item', 9, 2);
-            $table->date('date_input_use_item');
+            $table->date('date_create');
+            $table->date('date_buy');
+            $table->decimal('coast', 9, 2);
+            $table->date('date_input_use');
             $table->date('service_life');
             $table->timestamps();
         });

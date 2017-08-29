@@ -7,7 +7,7 @@
         <p class="lead">This project will help to realize the inventory process and accounting of material resources for
             enterprises and organizations to simplify and help them. It will facilitate the implementation of the
             process and reduce material costs and reduce man / costs.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
+        {{--<p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>--}}
     </div>
 
     <!-- Example row of columns

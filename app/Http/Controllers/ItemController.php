@@ -22,14 +22,8 @@ class ItemController extends Controller
     }
 
     public function getItems(){
-        //$items = DB::table('items')->get();
         $items = Item::all();
         dump($items);
-
-        /*foreach ($items as $item){
-            dump($item->name);
-        }*/
-
         return $items;
     }
 

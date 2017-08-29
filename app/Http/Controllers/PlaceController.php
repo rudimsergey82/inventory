@@ -15,4 +15,11 @@ class PlaceController extends Controller
         }
         abort(404);
     }
+
+    public function getPlaces(){
+        $places = Place::all();
+        dump($places);
+        return $places;
+    }
+
 }

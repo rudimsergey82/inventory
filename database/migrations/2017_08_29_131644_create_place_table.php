@@ -18,7 +18,7 @@ class CreatePlaceTable extends Migration
             $table->string('name');
             $table->integer('parent_id');
             $table->timestamps();
-            $table->dropColumn('deleted_at');
+            $table->softDeletes();
         });
     }
 

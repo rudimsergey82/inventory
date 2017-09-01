@@ -11,7 +11,6 @@
 |
 */
 
-
 /*Route::get('/', function () {
     return view('welcome');
 } );*/
@@ -26,6 +25,8 @@ Route::get('/addItem', 'AddItemFormController@index');
 
 Route::get('/', 'IndexController@index');
 
-Route::get('item', 'ItemController@index');
+Route::get('/items', 'ItemController@index');
+
+Route::get('/item/{id}', 'ItemController@getItem');
 
 Route::get('place', 'PlaceController@index');

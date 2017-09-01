@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="body_item_form">
-            <h2>Item</h2>
+            <h2>All items</h2>
             <table class="table-all-items" border="1">
                 <tr class="header-table-all-items">
                     <th class="header-table"></th>
@@ -19,7 +19,9 @@
                     <th class="header-table">Guarantee</th>
                     <th class="header-table">Place</th>
                 </tr>
+                @foreach($items as $item)
                     <tr>
+                        {{--<td><submit>View</submit></td>--}}
                         <td><a class="btn btn-lg btn-success" href="{{url('item')}}/{{$item->id}}" role="button">V</a></td>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
@@ -33,16 +35,11 @@
                         <td>{{ $item->guarantee }}</td>
                         <td>place</td>
                     </tr>
+                @endforeach
             </table>
         </div>
         <div>
             <p><a class="btn btn-lg btn-success" href="{{url('addItem')}}" role="button">Add item</a></p>
-            <form class="form-horizontal" method="post">
-                <input type="submit" class="form-item" value="Add QRCode">
-
-                <input type="submit" class="form-item" value="Add Audit">
-            </form>
-
         </div>
     </div>
 @endsection

@@ -23,7 +23,7 @@ class CreateItemsTable extends Migration
             $table->date('date_buy');
             $table->decimal('coast', 9, 2);
             $table->date('date_input_use');
-            $table->date('service_life');
+            $table->integer('guarantee', 10);
             $table->timestamps();
         });
     }

@@ -37,7 +37,7 @@
                         <a class="nav-link" href="{{url('place')}}">Places</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('item')}}">Items</a>
+                        <a class="nav-link" href="{{url('items')}}">Items</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href={{url('addItem')}}>Add item</a>

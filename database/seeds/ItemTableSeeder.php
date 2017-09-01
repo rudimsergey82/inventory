@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Model;
 
 class ItemTableSeeder extends Seeder
 {
@@ -13,10 +14,19 @@ class ItemTableSeeder extends Seeder
      */
     public function run()
     {
-        Schema::table('items', function (){
-
-        })->insert(
+        DB::table('items')->insert(
             [
+                [
+                    'name' => 'Hammer',
+                    'identification_number' => '111111',
+                    'serial_number' => '10000001',
+                    'specifications' => 'material: steel and tree',
+                    'date_create' => '01.01.2017',
+                    'date_buy' => '01.02.2017',
+                    'coast' => '55.55',
+                    'date_input_use' => '05.02.2017',
+                    'guarantee' => '10'
+                ],
                 [
                     'name' => 'Hammer',
                     'identification_number' => '111001',
@@ -26,7 +36,7 @@ class ItemTableSeeder extends Seeder
                     'date_buy' => '01.02.2017',
                     'coast' => '55',
                     'date_input_use' => '05.02.2017',
-                    'service_life' => '05.02.2027'
+                    'guarantee' => '10'
                 ],
                 [
                     'name' => 'Screwdriver',
@@ -37,7 +47,7 @@ class ItemTableSeeder extends Seeder
                     'date_buy' => '01.02.2017',
                     'coast' => '5',
                     'date_input_use' => '05.02.2017',
-                    'service_life' => '05.02.2020'
+                    'guarantee' => '5'
                 ]
             ]
         );

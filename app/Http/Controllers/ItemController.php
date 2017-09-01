@@ -10,9 +10,9 @@ class ItemController extends Controller
     protected static $items;
     //
     public function index(){
-        if (view()->exists('showItem')){
+        if (view()->exists('items')){
             $items = $this->getItems();
-            return view('showItem')->with(['items' => $items]);
+            return view('items')->with(['items' => $items]);
         }
         abort(404);
     }
@@ -28,6 +28,11 @@ class ItemController extends Controller
     }
 
     public function getItem($id){
-        echo 'Answer - '.$id;
+        if (view()->exists('showItem')){
+            $item = $this->getItems()->find($id);
+            dump($item);
+            return view('showItem')->with(['item' => $item]);
+        }
+        abort(404);
     }
 }

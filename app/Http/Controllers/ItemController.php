@@ -17,22 +17,36 @@ class ItemController extends Controller
         abort(404);
     }
 
-    public static function addItems($array){
-        return self::$items = $array;
-    }
-
     public function getItems(){
         $items = Item::all();
         dump($items);
         return $items;
     }
 
-    public function getItem($id){
+    public function showItem($id){
         if (view()->exists('showItem')){
-            $item = $this->getItems()->find($id);
-            dump($item);
+            $item = $this->getItem($id);
             return view('showItem')->with(['item' => $item]);
         }
         abort(404);
+    }
+
+    public function getItem($id){
+        $item = Item::all()->find($id);
+        dump($item);
+        return $item;
+    }
+
+    /**
+     * @param mixed $items
+     */
+    public static function setItems($items)
+    {
+        self::$items = $items;
+    }
+
+
+    public static function addItems($array){
+        return self::$items = $array;
     }
 }

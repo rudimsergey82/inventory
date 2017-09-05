@@ -23,10 +23,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/addItem', 'AddItemFormController@index');
 
+Route::post('/addItem', 'AddItemFormController@addItem');
+
 Route::get('/', 'IndexController@index');
 
 Route::get('/items', 'ItemController@index');
 
-Route::get('/item/{id}', 'ItemController@getItem');
+Route::get('/item/{id}', 'ItemController@showItem');
 
 Route::get('place', 'PlaceController@index');

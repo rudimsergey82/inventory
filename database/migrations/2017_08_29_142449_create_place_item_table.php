@@ -17,8 +17,9 @@ class CreatePlaceItemTable extends Migration
             $table->increments('id');
             $table->integer('place_id');
             $table->integer('item_id');
+            $table->integer('new_place_id');
             $table->timestamps();
-            $table->dropColumn('deleted_at');
+            $table->softDeletes();
         });
     }
 

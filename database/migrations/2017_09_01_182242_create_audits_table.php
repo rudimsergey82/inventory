@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateItemsTable extends Migration
+class CreateAuditsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,15 @@ class UpdateItemsTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('items', function (Blueprint $table) {
+        Schema::create('audits', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('item_id');
+
+            $table->string('name');
+            $table->string('type place');
+
+            $table->integer('parent_id');
+            $table->timestamps();
             $table->softDeletes();
         });
     }
@@ -26,9 +33,6 @@ class UpdateItemsTable extends Migration
      */
     public function down()
     {
-        //
-        Schema::table('items', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
-        });
+        Schema::dropIfExists('audits');
     }
 }

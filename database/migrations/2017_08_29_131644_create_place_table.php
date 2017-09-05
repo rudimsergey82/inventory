@@ -16,9 +16,10 @@ class CreatePlaceTable extends Migration
         Schema::create('place', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('type_place');
             $table->integer('parent_id');
             $table->timestamps();
-            $table->dropColumn('deleted_at');
+            $table->softDeletes();
         });
     }
 

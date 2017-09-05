@@ -25,6 +25,7 @@ class CreateItemsTable extends Migration
             $table->date('date_input_use');
             $table->integer('guarantee', 10);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

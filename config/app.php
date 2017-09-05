@@ -163,7 +163,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-
         //Illuminate\Database\QueryException::class,
         /*
          * Package Service Providers...

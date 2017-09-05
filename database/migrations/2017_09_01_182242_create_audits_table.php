@@ -16,11 +16,8 @@ class CreateAuditsTable extends Migration
         Schema::create('audits', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('item_id');
+            $table->date('date_check');
 
-            $table->string('name');
-            $table->string('type place');
-
-            $table->integer('parent_id');
             $table->timestamps();
             $table->softDeletes();
         });

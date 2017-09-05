@@ -50,7 +50,7 @@
                             <a class="nav-link" href="{{url('place')}}">Places</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('audit')}}">Audit</a>
+                                <a class="nav-link" href="{{url('audit')}}">Audits</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('about')}}">About</a>
@@ -58,7 +58,7 @@
 
                                            <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
-                                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</a>
                                                 <div class="dropdown-menu" aria-labelledby="dropdown01">
                                                     <a class="dropdown-item" href="{{url('addItem')}}">Add item</a>
                                                     <a class="dropdown-item" href="{{url('addPlace')}}">Add place</a>

@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/addItem', 'AddItemFormController@index');
 
+/*Route::post('/addItem', 'AddItemFormController@store');*/
 Route::post('/addItem', 'AddItemFormController@addItem');
 
 Route::get('/', 'IndexController@index');

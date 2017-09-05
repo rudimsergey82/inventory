@@ -13,7 +13,7 @@
                 <label>Serial number</label>
                 <input type="text" class="form-item" name="serial" value="">
                 <label>Specifications</label>
-                <textarea type="text" class="form-item" name="specification"></textarea>
+                <textarea type="text" class="form-item" name="specifications"></textarea>
                 <br>
                 <label>Day create</label>
                 <input type="text" class="form-item" name="dt_create" value="">

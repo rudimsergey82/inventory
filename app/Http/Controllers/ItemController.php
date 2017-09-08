@@ -2,37 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Item;
+use Illuminate\Http\Request;
+
 
 class ItemController extends Controller
 {
     protected static $items;
+
     //
-    public function index(){
-        if (view()->exists('items')){
+    public function store(Request $request)
+    {
+        $item = new Item;
+        $item->name = $request->name;
+        $item->identification_number = $request->identification;
+        $item->serial_number = $request->serial;
+        $item->specifications = $request->specifications;
+        $item->date_create = $request->dt_create;
+        $item->date_buy = $request->dt_buy;
+        $item->coast = $request->coast;
+        $item->date_input_use = $request->dt_input_use;
+        $item->guarantee = $request->guarantee;
+        $item->save();
+    }
+
+    public function index()
+    {
+        if (view()->exists('items')) {
             $items = $this->getItems();
             return view('items')->with(['items' => $items]);
         }
         abort(404);
     }
 
-    public function getItems(){
+    public function getItems()
+    {
         $items = Item::all();
         dump($items);
         return $items;
     }
 
-    public function showItem($id){
-        if (view()->exists('showItem')){
+    public function showItem($id)
+    {
+        if (view()->exists('showItem')) {
             $item = $this->getItem($id);
             return view('showItem')->with(['item' => $item]);
         }
         abort(404);
     }
 
-    public function getItem($id){
-        $item = Item::all()->find($id);
+    public function getItem($id)
+    {
+        $item = Item::find($id);
         dump($item);
         return $item;
     }
@@ -40,13 +61,14 @@ class ItemController extends Controller
     /**
      * @param mixed $items
      */
-    public static function setItems($items)
+/*    public static function setItems($array)
     {
-        self::$items = $items;
-    }
+         self::$items = $array;
+         foreach (self::$items as $item){
+             $this->store($item);
+         }
 
+         return ;
+    }*/
 
-    public static function addItems($array){
-        return self::$items = $array;
-    }
 }

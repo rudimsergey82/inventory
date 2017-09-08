@@ -18,8 +18,8 @@ class Item extends Model
 
     protected $fillable = ['name', 'identification_number', 'serial_number', 'specifications', 'date_create', 'date_buy', 'coast', 'date_input_use', 'guarantee'];
 
-    public function place(){
-        return $this->hasOne('App\Place');
+    public function placeItem(){
+        return $this->hasOne('App\PlaceItem', 'item_id', 'id');
     }
     public function audit(){
         return $this->hasOne('App\Audit');

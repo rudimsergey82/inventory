@@ -1,4 +1,5 @@
 @extends('layouts.pageTemplate')
+{{--@extends('layouts.template')--}}
 
 @section('content')
     <div class="container">
@@ -34,5 +35,19 @@
                 <input type="submit" class="form-item" value="add item" name="add_item">
             </form>
         </div>
+        {{--<div class="body_item_form">
+            <h2>Form add place</h2>
+            <form class="form-horizontal-item" method="post" action="{{ url('/addItem') }}">
+                <label>Name</label>
+                <input title="" type="text" class="form-item" name="name" value="">
+                <br>
+                <label>Type</label>
+                <input type="text" class="form-item" name="type" value="">
+                <br>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="submit" class="form-item" value="add item" name="add_item">
+            </form>
+        </div>--}}
+
     </div>
 @endsection

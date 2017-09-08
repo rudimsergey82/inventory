@@ -10,7 +10,10 @@ class PlaceController extends Controller
     //
     public function index(){
         if (view()->exists('showPlace')){
-            //$places = $this->getPlaces();
+            /*$places = $this->getPlaces();
+            dump($places);
+            $place = $this->create();
+            dump($place);*/
             return view('showPlace')/*->with(['places' => $places])*/;
         }
         abort(404);
@@ -18,8 +21,13 @@ class PlaceController extends Controller
 
     public function getPlaces(){
         $places = Place::all();
-        dump($places);
+
         return $places;
     }
 
+    public function create()
+    {
+        $place = new Place();
+        return view('place.create', ['place' => $place ]);
+    }
 }

@@ -14,4 +14,15 @@ class Audit extends Model
     public $timestamps = TRUE;
 
     protected $dates = ['deleted_at'];
+
+    public function place()
+    {
+        return $this->belongsTo('place', 'foreign_key');
+    }
+
+    public function auditItem()
+    {
+        return $this->hasMany('audit_item', 'id');
+    }
+
 }

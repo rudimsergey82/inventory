@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAuditsTable extends Migration
+class CreateAuditItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateAuditsTable extends Migration
      */
     public function up()
     {
-        Schema::create('audits', function (Blueprint $table) {
+        Schema::create('audit_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('place_id')->references('id')->on('places');
-            $table->integer('audit_item_id')->references('id')->on('audit_items');
-            $table->date('date_check');
-
+            $table->integer('audit_id')->references('id')->on('audits');
+            $table->integer('item_id')->references('id')->on('items');
+            $table->enum('item_status', ['ok', 'fail', 'new'])->default('ok');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +30,6 @@ class CreateAuditsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('audits');
+        Schema::dropIfExists('audit_items');
     }
 }

@@ -2,44 +2,37 @@
 
 @section('content')
     <div class="container">
-        <div class="body_item_form">
-            <h2>Form add place</h2>
-            <form class="{{--form-horizontal-item--}}" method="post" action="{{ url('/addItem') }}">
-                <div class="form-group">
-                    <label>Type:</label>
-                    <input title="" type="text" class="form-item" name="type" value="">
-                </div>
-                <div class="form-group">
-                    <label>Name:</label>
-                    <input title="" type="text" class="form-item" name="name" value="">
-                </div>
-
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="submit" class="form-item" value="add item" name="add_item">
-
-            </form>
-        </div>
-    </div>
-    <div class="container">
-        <h2>Vertical (basic) form</h2>
-        <form action="#">
+        <h2>Form add place</h2>
+        <form  method="post" action="{{ url('/addItem') }}">
             <div class="form-group">
-                <label>Type:</label>
-                <input title="" type="text" class="form-item" name="type" value="">
+                <label for="type">Type:</label>
+                <input type="text" class="form-control" id="type" placeholder="Enter type" name="type">
             </div>
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
             </div>
-            <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-            </div>
-            <div class="checkbox">
-                <label><input type="checkbox" name="remember"> Remember me</label>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-default" name="add_place">Add place</button>
         </form>
     </div>
+
+    {{--
+    {!! Form::model($place, ['action' => 'PlaceController@store']) !!}
+
+    <div class="form-group">
+        {!! Form::label('make', 'Make') !!}
+        {!! Form::text('make', '', ['class' => 'form-control']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('model', 'Model') !!}
+        {!! Form::text('model', '', ['class' => 'form-control']) !!}
+    </div>
+
+    <button class="btn btn-success" type="submit">Add the Place!</button>
+
+    {!! Form::close() !!}
+--}}
 
 @endsection

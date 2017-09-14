@@ -2,25 +2,6 @@
 
 @section('content')
 
-{{--
-    {!! Form::model($place, ['action' => 'PlaceController@store']) !!}
-
-    <div class="form-group">
-        {!! Form::label('make', 'Make') !!}
-        {!! Form::text('make', '', ['class' => 'form-control']) !!}
-    </div>
-
-    <div class="form-group">
-        {!! Form::label('model', 'Model') !!}
-        {!! Form::text('model', '', ['class' => 'form-control']) !!}
-    </div>
-
-    <button class="btn btn-success" type="submit">Add the Place!</button>
-
-    {!! Form::close() !!}
---}}
-
-
 
     <div class="container">
         <div class="body_item_form">
@@ -58,4 +39,9 @@
             </div>
         </div>
     </div>
+
+    <div>
+        {!! viewTreePlace !!}
+    </div>
+
 @endsection

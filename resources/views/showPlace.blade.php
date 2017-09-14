@@ -41,7 +41,7 @@
     </div>
 
     <div>
-        {!! viewTreePlace !!}
+       {{-- @{{ viewTreePlace }}--}}
     </div>
 
 @endsection

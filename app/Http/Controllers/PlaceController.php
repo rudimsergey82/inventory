@@ -88,7 +88,7 @@ class PlaceController extends Controller
                                     <a href="#?action=delete_place&post_id=<?= $arr[$parent_id][$i]['id'] ?>&place_id=<?= $arr[$parent_id][$i]['id'] ?>">Delete</a>
                                 </div>
                                 <?php
-                                $this->buildTreePlace($arr, $arr[$parent_id][$i]['id']);
+                                self::buildTreePlace($arr, $arr[$parent_id][$i]['id']);
                                 /*viewPlaces($arr, $arr[$parent_id][$i]['id']);*/
                                 ?>
                             </li>

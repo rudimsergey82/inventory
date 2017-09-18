@@ -11,12 +11,26 @@ class PlaceController extends Controller
     public function index()
     {
         if (view()->exists('showPlace')) {
+            /*$this->showTreePlace();*/
             $tree = $this->buildTree();
-            dump($tree);
+            /*dump($tree);*/
+            ob_start();
             $viewTreePlaces = $this->buildTreePlace($tree);
-            /*$place = $this->create();
-            dump($viewTreePlaces);*/
-            return view('showPlace')->with(['viewTreePlaces' => $viewTreePlaces]);
+            /*$place = $this->create();*/
+            /*dump($viewTreePlaces);*/
+            return view('showPlace'/*, 'PlaceController@buildTreePlace'*/)/*->with(['tree' => $tree])*/;
+        }
+        abort(404);
+    }
+    public function showTreePlace()
+    {
+        if (view()->exists('treePlaces')) {
+            $tree = $this->buildTree();
+            /*dump($tree);*/
+            $this->buildTreePlace($tree);
+            /*$place = $this->create();*/
+            /*dump($viewTreePlaces);*/
+            return redirect()->route('place.index')/* view('treePlaces')*/;
         }
         abort(404);
     }
@@ -48,16 +62,14 @@ class PlaceController extends Controller
     protected function buildTree()
     {
         $places = $this->getPlaces();
-        dump($places);
+        /*dump($places);*/
         if (!is_object($places)) {
             return false;
         }
         $tree = [];
         foreach ($places as $place) {
-            /*dump($place);*/
             $tree[$place['parent_id']][] = $place;
         }
-        /*dump($tree);*/
         return $tree;
     }
 
@@ -67,8 +79,9 @@ class PlaceController extends Controller
         /*function viewPlaces($arr, $parent_id = 0)
         {*/
             if (empty($arr[$parent_id])) {
+                //$treePlaces = ob_get_contents();
                 return;
-            } else {?>
+            } else { ob_get_contents()?>
                 <div class="content">
                     <ul>
                         <?php
@@ -101,4 +114,32 @@ class PlaceController extends Controller
         viewPlaces($tree);*/
     }
 
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function managePlace()
+    {
+        $places = Place::where('parent_id', '=', 0)->get();
+        $allPlaces = Place::pluck('name','id')->all();
+        return view('placeTreeView', compact('places','allPlaces'));
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addPlace(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+        $input = $request->all();
+        $input['parent_id'] = empty($input['parent_id']) ? 0 : $input['parent_id'];
+
+        Place::create($input);
+        return back()->with('success', 'New Place added successfully.');
+    }
 }

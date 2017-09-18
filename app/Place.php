@@ -15,6 +15,8 @@ class Place extends Model
 
     protected $dates = ['deleted_at'];
 
+    public $fillable = ['name', 'type_place', 'last_audit', 'full_path', 'parent_id'];
+
     /*protected $fillable = ['name', 'identification_number', 'serial_number', 'specifications', 'date_create', 'date_buy', 'coast', 'date_input_use', 'guarantee'];*/
 
 
@@ -22,21 +24,19 @@ class Place extends Model
         return $this->hasMany('App\PlaceItem', 'place_id', 'id');
     }*/
 
-    public function audit()
+    public function childs()
     {
-        return $this->hasMany('App\Audit', 'place_id');
+        return $this->hasMany('App\Place', 'parent_id', 'id');
     }
 
-
+    public function audit()
+    {
+        return $this->hasMany('App\Audit', 'place_id', 'id');
+    }
 
     public function parent()
     {
         return $this->belongsTo('Place', 'parent_id');
-    }
-
-    public function children()
-    {
-        return $this->hasMany('Place', 'parent_id');
     }
 
 }

@@ -36,4 +36,9 @@ Route::get('/items', 'ItemController@index');
 
 Route::get('/item/{id}', 'ItemController@showItem');
 
-Route::get('place', 'PlaceController@index');
+Route::get('place', 'PlaceController@index')->name('place.index');
+
+Route::get('place-tree-view',['uses'=>'PlaceController@managePlace']);
+Route::post('add-place',['as'=>'add.place','uses'=>'PlaceController@addPlace']);
+
+Route::get('treePlaces', 'PlaceController@showTreePlace');

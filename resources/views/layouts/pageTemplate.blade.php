@@ -18,6 +18,10 @@
     <!-- Custom styles for this template -->
     <link href="{{asset("css/justified-nav.css")}}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    {{--Include Print Preview Script from Rudim S--}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://www.position-absolute.com/creation/print/jquery.printPage.js"></script>
 </head>
 
 <body>
@@ -106,7 +110,9 @@
 
 
         @yield('content')
+
     </div>
+
     <!-- Site footer -->
     <footer class="footer">
         <p>&copy; Company A-level "Team OLD School" 2017</p>
@@ -126,5 +132,8 @@
 <script src={{url("js/bootstrap.min.js")}}></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../../../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="js/printPage.js"></script>
 </body>
 </html>

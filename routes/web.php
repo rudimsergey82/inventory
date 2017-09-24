@@ -33,3 +33,9 @@ Route::get('/items', 'ItemController@index');
 Route::get('/item/{id}', 'ItemController@showItem');
 
 Route::get('place', 'PlaceController@index');
+
+/*Route::get('/','PrintController@index');*/
+
+Route::get('/printPreview','PrintController@printPreview');
+
+Route::get('/QR/{id}','QRCodeController@getQRCodeItem');

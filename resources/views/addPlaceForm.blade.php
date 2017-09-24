@@ -12,7 +12,7 @@
                 <label for="name">Name:</label>
                 <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
             </div>
-            <input type="hidden" name="_token" value="{{ parent_id }}">
+            <input type="hidden" name="_token" value="{{ $input['parent_id'] }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <button type="submit" class="btn btn-default" name="add_place">Add place</button>
         </form>

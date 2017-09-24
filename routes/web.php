@@ -40,4 +40,14 @@ Route::post('/addPlace', 'AddPlaceFormController@addPlace');
 Route::get('place-tree-view',['uses'=>'PlaceController@managePlace']);
 Route::post('add-place',['as'=>'add.place','uses'=>'PlaceController@addPlace']);
 
+
 //Route::get('treePlaces', 'PlaceController@showTreePlace');
+
+/*Route::get('place', 'PlaceController@index');*/
+
+/*Route::get('/','PrintController@index');*/
+
+Route::get('/printPreview','PrintController@printPreview');
+
+Route::get('/QR/{id}','QRCodeController@getQRCodeItem');
+

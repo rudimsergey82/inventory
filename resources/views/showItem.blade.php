@@ -20,7 +20,7 @@
                     <th class="header-table">Place</th>
                 </tr>
                     <tr>
-                        <td><a class="btn btn-lg btn-success" href="{{url('item')}}/{{$item->id}}" role="button">V</a></td>
+                        <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->id}}" role="button">V</a></td>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->identification_number }}</td>
@@ -38,11 +38,15 @@
         <div>
             <p><a class="btn btn-lg btn-success" href="{{url('addItem')}}" role="button">Add item</a></p>
             <form class="form-horizontal" method="post">
-                <input type="submit" class="form-item" value="Add QRCode">
+
 
                 <input type="submit" class="form-item" value="Add Audit">
             </form>
-
+            <div>
+                {!! $QR !!}
+                {{--{!! QrCode::size(100)->generate(Request::url()); !!}--}}
+                <p>Scan me for inventory</p>
+            </div>
         </div>
     </div>
 @endsection

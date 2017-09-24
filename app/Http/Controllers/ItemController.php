@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Http\Controllers\QRCodeController;
 use Illuminate\Http\Request;
 
 
@@ -63,7 +64,9 @@ class ItemController extends Controller
     {
         if (view()->exists('showItem')) {
             $item = $this->getItem($id);
-            return view('showItem')->with(['item' => $item]);
+            $QRCodeController = new QRCodeController;
+            $QR = $QRCodeController->getQRCodeItem($id);
+            return view('showItem'/*, QRCodeController@*/)->with(['item' => $item, 'QR' => $QR]);
         }
         abort(404);
     }

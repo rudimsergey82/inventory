@@ -14,4 +14,14 @@ class PlaceItem extends Model
     public $timestamps = TRUE;
 
     protected $dates = ['deleted_at'];
+
+    public function place(){
+        return $this->belongsTo('App\Place', 'place_id', 'id');
+    }
+
+    public function item(){
+        return $this->belongsTo('App\Item', 'item_id', 'id');
+    }
+
+
 }

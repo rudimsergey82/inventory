@@ -14,6 +14,7 @@
 /*Route::get('/', function () {
     return view('welcome');
 } );*/
+Route::get('/', 'IndexController@index');
 
 Auth::routes();
 
@@ -23,10 +24,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/addItem', 'AddItemFormController@index');
 
-/*Route::post('/addItem', 'AddItemFormController@store');*/
 Route::post('/addItem', 'AddItemFormController@addItem');
+/*Route::post('/addItem', 'AddItemFormController@store');*/
 
-Route::get('/', 'IndexController@index');
+Route::get('/addPlace', 'AddPlaceFormController@index');
+
+Route::post('/addPlace', 'AddPlaceFormController@addPlace');
+
 
 Route::get('/items', 'ItemController@index');
 

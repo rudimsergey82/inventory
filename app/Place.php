@@ -17,4 +17,26 @@ class Place extends Model
 
     /*protected $fillable = ['name', 'identification_number', 'serial_number', 'specifications', 'date_create', 'date_buy', 'coast', 'date_input_use', 'guarantee'];*/
 
+
+/*    public function placeItem(){
+        return $this->hasMany('App\PlaceItem', 'place_id', 'id');
+    }*/
+
+    public function audit()
+    {
+        return $this->hasMany('App\Audit', 'place_id');
+    }
+
+
+
+    public function parent()
+    {
+        return $this->belongsTo('Place', 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany('Place', 'parent_id');
+    }
+
 }

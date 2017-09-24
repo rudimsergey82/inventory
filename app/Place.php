@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Request;
 
 class Place extends Model
 {
@@ -15,18 +16,17 @@ class Place extends Model
 
     protected $dates = ['deleted_at'];
 
-    public $fillable = ['name', 'type_place', 'last_audit', 'full_path', 'parent_id'];
+    protected $fillable = ['name', 'type_place', 'last_audit', 'full_path', 'parent_id'];
 
-    /*protected $fillable = ['name', 'identification_number', 'serial_number', 'specifications', 'date_create', 'date_buy', 'coast', 'date_input_use', 'guarantee'];*/
-
-
-/*    public function placeItem(){
-        return $this->hasMany('App\PlaceItem', 'place_id', 'id');
-    }*/
 
     public function childs()
     {
         return $this->hasMany('App\Place', 'parent_id', 'id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('Place', 'parent_id');
     }
 
     public function audit()
@@ -34,9 +34,8 @@ class Place extends Model
         return $this->hasMany('App\Audit', 'place_id', 'id');
     }
 
-    public function parent()
-    {
-        return $this->belongsTo('Place', 'parent_id');
-    }
+    /*    public function placeItem(){
+            return $this->hasMany('App\PlaceItem', 'place_id', 'id');
+        }*/
 
 }

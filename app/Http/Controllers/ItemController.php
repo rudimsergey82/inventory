@@ -11,6 +11,23 @@ class ItemController extends Controller
     protected static $items;
 
     //
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+    }
+
+/*    protected function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+    }*/
     public function store(Request $request)
     {
         $item = new Item;
@@ -38,7 +55,7 @@ class ItemController extends Controller
     public function getItems()
     {
         $items = Item::all();
-        dump($items);
+        /*dump($items);*/
         return $items;
     }
 

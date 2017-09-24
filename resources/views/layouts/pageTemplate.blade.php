@@ -21,10 +21,8 @@
 </head>
 
 <body>
-
 <div id="app">
     <div class="container">
-
         <div class="masthead">
             <h3 class="text-muted">{{ config('app.name') }}</h3>
             {{--<nav class="navbar navbar-default navbar-static-top">--}}
@@ -39,16 +37,13 @@
                             <a class="nav-link" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{url('audit')}}">Audits</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{url('items')}}">Items</a>
                         </li>
-                        {{--                            <li class="nav-item">
-                                                        <a class="nav-link" href="{{url('addItem')}}">Add item</a>
-                                                    </li>--}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('place')}}">Places</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('audit')}}">Audits</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('about')}}">About</a>
@@ -109,9 +104,9 @@
         <footer class="footer">
             <p>&copy; Company A-level "Team OLD School" 2017</p>
         </footer>
+    </div>
+</div> <!-- /container -->
 
-    </div> <!-- /container -->
-</div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

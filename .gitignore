@@ -14,3 +14,4 @@ composer_2.phar
 composer.phar
 composer.bat
 composer
+resources/views/hlam.php

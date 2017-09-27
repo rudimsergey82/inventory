@@ -66,7 +66,7 @@
 
 
                         <!-- Right Side Of Navbar -->
-                        {{--<ul class="nav navbar-nav navbar-right">--}}
+                        <ul class="nav navbar-nav navbar-right">
                             <!-- Authentication Links -->
                             @if (Auth::guest())
                                 <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
@@ -94,7 +94,7 @@
                                     </ul>
                                 </li>
                             @endif
-                        {{--</ul>--}}
+                        </ul>
                     </ul>
                 </div>
             </nav>
@@ -117,14 +117,11 @@
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="../../../../assets/js/vendor/popper.min.js"></script>--}}
-<script src={{url("js/bootstrap.min.js")}}></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
+<script src={{url("js/js/bootstrap.js")}}></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="js/printPage.js"></script>
+<script src="{{ asset('js/printPage.js') }}"></script>
 
 {{--<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

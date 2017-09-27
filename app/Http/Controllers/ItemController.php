@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\QRCodeController;
 use Illuminate\Http\Request;
 
@@ -16,19 +17,17 @@ class ItemController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'identification' => 'required|integer|max:255|unique',
+            'serial' => 'required|string|max:255',
+            'specifications' => 'string|max:255',
+            'dt_create' => 'date',
+            'dt_buy' => 'date',
+            'coast' => 'decimal|max:100',
+            'dt_input_use' => 'date',
+            'guarantee' => 'string|max:255',
         ]);
     }
 
-/*    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }*/
     public function store(Request $request)
     {
         $item = new Item;
@@ -56,7 +55,6 @@ class ItemController extends Controller
     public function getItems()
     {
         $items = Item::all();
-        /*dump($items);*/
         return $items;
     }
 
@@ -74,7 +72,6 @@ class ItemController extends Controller
     public function getItem($id)
     {
         $item = Item::find($id);
-        dump($item);
         return $item;
     }
 

@@ -22,7 +22,8 @@
                 @foreach($items as $item)
                     <tr>
                         {{--<td><submit>View</submit></td>--}}
-                        <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->id}}" role="button">V</a></td>
+                        <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->id}}" role="button">V</a>
+                        </td>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->identification_number }}</td>
@@ -48,12 +49,14 @@
             <p><a class="btn btn-lg btn-success" href="{{url('addItem')}}" role="button">Add item</a></p>
         </div>
 
-            <p><a href="{{URL::to('printPreview')}}" class="btn btn-lg btn-primary">Print all items</a></p>
-            <script type="text/javascript">
-                $(document).ready(function(){
-                    $('.btn-primary').printPage();
-                });
-            </script>
-        </div>
+        <p><a href="{{URL::to('printPreview')}}" class="btn btn-lg btn-primary">Print all items</a></p>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.btn-primary').printPage();
+            });
+        </script>
+    </div>
+    <div>
+        @include('common.importExport')
     </div>
 @endsection

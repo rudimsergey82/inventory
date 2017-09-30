@@ -187,6 +187,9 @@ return [
 
         //Qr Code
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+       //maatwebsite/excel
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
     ],
 
     /*
@@ -244,6 +247,9 @@ return [
 
         //Qr Code
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+
+        //Exel
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

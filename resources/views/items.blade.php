@@ -47,7 +47,7 @@
         <div>
             <p><a class="btn btn-lg btn-success" href="{{url('addItem')}}" role="button">Add item</a></p>
         </div>
-
+        <div>
             <p><a href="{{URL::to('printPreview')}}" class="btn btn-lg btn-primary">Print all items</a></p>
             <script type="text/javascript">
                 $(document).ready(function(){
@@ -55,5 +55,50 @@
                 });
             </script>
         </div>
+
+    <div class="panel-body">
+
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('success') }}
+            </div>
+        @endif
+
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ Session::get('error') }}
+            </div>
+        @endif
+
+        <h3>Import file to Database:</h3>
+            <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;" action="{{ URL::to('importExcel') }}"
+                  class="form-horizontal" method="post" enctype="multipart/form-data">
+                <input type="file" name="import_file" />
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <button class="btn btn-success btn-lg">Import File</button>
+            </form>
+        {{--<form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px;" action="{{ url('importExcel') }}
+                " class="form-horizontal" method="post" enctype="multipart/form-data">
+
+            <input type="file" name="import_file" />
+            {{ csrf_field() }}
+            <br/>
+
+            <button class="btn btn-lg btn-success">Import CSV or Excel File</button>
+
+        </form>--}}
+        <br/>
+
+
+        <h3>Export file from Database:</h3>
+        <div style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px;">
+            <a href="{{ url('downloadExcel/xlsx') }}"><button class="btn btn-success btn-lg">Download Excel xlsx</button></a>
+            <a href="{{ url('downloadExcel/csv') }}"><button class="btn btn-success btn-lg">Download CSV</button></a>
+        </div>
+
+    </div>
+
+
+
     </div>
 @endsection

@@ -22,7 +22,8 @@
                 @foreach($items as $item)
                     <tr>
                         {{--<td><submit>View</submit></td>--}}
-                        <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->id}}" role="button">V</a></td>
+                        <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->id}}" role="button">V</a>
+                        </td>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->identification_number }}</td>
@@ -40,7 +41,7 @@
         </div>
 
         <div class="visible-print text-center">
-            {!! QrCode::size(100)->generate(Request::url()); !!}
+            {!! QrCode::size(100)->generate(Request::url()) !!}
             <p>Сканируйте меня, чтобы вернуться на исходную страницу.</p>
         </div>
 
@@ -97,8 +98,5 @@
         </div>
 
     </div>
-
-
-
     </div>
 @endsection

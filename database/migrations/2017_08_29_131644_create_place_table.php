@@ -16,8 +16,8 @@ class CreatePlaceTable extends Migration
         Schema::create('places', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('type_place');
-            $table->string('full_path');
+            $table->string('type_place')->nullable();
+            $table->string('full_path')->nullable();
             $table->date('last_audit')->nullable();
             $table->integer('parent_id')->nullable();
             $table->timestamps();

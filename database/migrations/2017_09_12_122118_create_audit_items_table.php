@@ -15,8 +15,9 @@ class CreateAuditItemsTable extends Migration
     {
         Schema::create('audit_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('audit_id')->references('id')->on('audits');
-            $table->integer('item_id')->references('id')->on('items');
+            /*$table->integer('audit_id')->references('id')->on('audits');*/
+            $table->integer('item_id')->unsigned();
+            $table->foreign('item_id')->references('id')->on('items');
             $table->enum('item_status', ['ok', 'fail', 'new'])->default('ok');
             $table->timestamps();
             $table->softDeletes();

@@ -20,7 +20,6 @@ class AddItemFormController extends Controller
 
     public function addItem()
     {
-        dump($_POST);
         Item::create(
             [
                 'name' => $_POST['name'],

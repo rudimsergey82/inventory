@@ -25,10 +25,8 @@
 </head>
 
 <body>
-
 <div id="app">
     <div class="container">
-
         <div class="masthead">
             <h3 class="text-muted">{{ config('app.name') }}</h3>
             {{--<nav class="navbar navbar-default navbar-static-top">--}}
@@ -43,16 +41,13 @@
                             <a class="nav-link" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{url('audit')}}">Audits</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{url('items')}}">Items</a>
                         </li>
-                        {{--                            <li class="nav-item">
-                                                        <a class="nav-link" href="{{url('addItem')}}">Add item</a>
-                                                    </li>--}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('place')}}">Places</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('audit')}}">Audits</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('about')}}">About</a>
@@ -106,22 +101,14 @@
             {{-- </nav>--}}
         </div>
 
-
-
         @yield('content')
 
+        <footer class="footer">
+            <p>&copy; Company A-level "Team OLD School" 2017</p>
+        </footer>
     </div>
+</div> <!-- /container -->
 
-    <!-- Site footer -->
-    <footer class="footer">
-        <p>&copy; Company A-level "Team OLD School" 2017</p>
-    </footer>
-
-
-    <!-- Site footer -->
-
-    </div> <!-- /container -->
-</div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -130,14 +117,11 @@
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="../../../../assets/js/vendor/popper.min.js"></script>--}}
-<script src={{url("js/bootstrap.min.js")}}></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
+<script src={{url("js/js/bootstrap.js")}}></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="js/printPage.js"></script>
+<script src="{{ asset('js/printPage.js') }}"></script>
 
 {{--<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

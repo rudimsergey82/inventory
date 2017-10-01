@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\AuditItem;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\QRCodeController;
 use Illuminate\Http\Request;

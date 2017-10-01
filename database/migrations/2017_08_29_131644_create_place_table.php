@@ -17,7 +17,7 @@ class CreatePlaceTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('type_place')->nullable();
-            $table->string('full_path')->nullable();
+            /*$table->string('full_path')->nullable();*/
             $table->date('last_audit')->nullable();
             $table->integer('parent_id')->nullable();
             $table->timestamps();

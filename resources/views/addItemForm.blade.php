@@ -29,12 +29,12 @@
                 </div>
                 <div class="form-group">
                     <label for="dt_create">Date create:</label>
-                    <input type="text" class="form-control" id="dt_create" placeholder="Enter date create"
+                    <input type="text" class="form-control"  id="#datepicker" placeholder="Enter date create"
                            name="dt_create">
                 </div>
                 <div class="form-group">
                     <label for="dt_buy">Date buy:</label>
-                    <input type="text" class="form-control" id="dt_buy" placeholder="Enter date buy" name="dt_buy">
+                    <input type="text" class="form-control"  id="#datepicker" placeholder="Enter date buy" name="dt_buy">
                 </div>
                 <div class="form-group">
                     <label for="coast">Coast:</label>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group">
                     <label for="dt_input_use">Date input use:</label>
-                    <input type="text" class="form-control" id="dt_input_use" placeholder="Enter date input use"
+                    <input type="text" class="form-control"  id="#datepicker" placeholder="Enter date input use"
                            name="dt_input_use">
                 </div>
                 <div class="form-group">

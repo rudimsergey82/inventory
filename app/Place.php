@@ -29,7 +29,7 @@ class Place extends Model
         return $this->belongsTo('Place', 'parent_id');
     }
 
-    public function audit()
+    public function audits()
     {
         return $this->hasMany('App\Audit', 'place_id', 'id');
     }

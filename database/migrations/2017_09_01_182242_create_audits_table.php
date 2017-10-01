@@ -20,7 +20,6 @@ class CreateAuditsTable extends Migration
             $table->integer('audit_item_id')->unsigned();
             $table->foreign('audit_item_id')->references('id')->on('audit_items');
             $table->date('date_check')->nullable();
-
             $table->timestamps();
             $table->softDeletes();
         });

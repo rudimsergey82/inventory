@@ -15,9 +15,11 @@ class Audit extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $fillable = ['place_id', 'auditItem_id', 'date_check'];
+
     public function place()
     {
-        return $this->belongsTo('place', 'foreign_key');
+        return $this->belongsTo('App\Place', 'id');
     }
 
     public function auditItem()

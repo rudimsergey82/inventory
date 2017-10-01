@@ -42,6 +42,7 @@ class AddFileController extends Controller
      */
     public function importExcel()
     {
+        $ins = [];
         if(Input::hasFile('import_file')){
             $path = Input::file('import_file')->getRealPath();
 
@@ -53,7 +54,7 @@ class AddFileController extends Controller
                     if(!empty($value)){
                         dump($value);
                         foreach ($value as $v) {
-                            $insert[] = [
+                            $ins = [
                                 'name' => $v['name'],
                                 'identification_number' => $v['identification_number'],
                                 'serial_number' => $v['serial_number'],
@@ -65,12 +66,12 @@ class AddFileController extends Controller
                                 'guarantee' => $v['guarantee']
                             ];
                         }
-                        dump($insert);
+                        dump($ins);
                     }
                 }
-                dump($insert);
-                if(!empty($insert)){
-                    Item::create($insert);
+                dump($ins);
+                if(!empty($ins)){
+                    Item::create($ins);
                     return view('items')->with('success','Insert Record successfully.');
                 }
             }

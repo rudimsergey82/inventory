@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Place;
+use App\Audit;
+use App\AuditItem;
+use Illuminate\Support\Facades\App;
 
 class PlaceController extends Controller
 {
@@ -11,10 +14,13 @@ class PlaceController extends Controller
     public function index()
     {
         if (view()->exists('showPlace')) {
+            dump(Audit::find(1)->place());
+            dump(Audit::find(1));
+            dump(Place::find(5));
             $tree = $this->buildTree();
-            /*dump($tree);*/
+            dump($tree);
             ob_start();
-            $this->buildTreePlace($tree);
+            $this->buildTreePlaceNew($tree);
             $treePlaces = ob_get_contents();
             ob_end_clean();
             return view('showPlace')->with(['treePlaces' => $treePlaces]);
@@ -22,7 +28,8 @@ class PlaceController extends Controller
         abort(404);
     }
 
-    protected function store(Request $request){
+    protected function store(Request $request)
+    {
 
         /*Place::created(function(){
             echo 'created!!!!';
@@ -94,47 +101,96 @@ class PlaceController extends Controller
             return;
         } else { ?>
             <div class="content">
-                <ul>
-                    <?php
-                    for ($i = 0; $i < count($arr[$parent_id]); $i++) {
-                        ?>
-                        <li>
-                            <table class="table-condensed"> <!-- border="1"-->
-                                <tr> <!--class="header-table-all-places"-->
-                                    <td>
+                <div class="panel-group">
+                    <ul>
+                        <?php
+                        for ($i = 0; $i < count($arr[$parent_id]); $i++) {
+                            ?>
+
+
+                            <li>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h4><?= isset($arr[$parent_id][$i]['type_place']) ? htmlspecialchars($arr[$parent_id][$i]->type_place) : '' ?>
+                                            : <?= isset($arr[$parent_id][$i]['name']) ? htmlspecialchars($arr[$parent_id][$i]['name']) : '' ?></h4>
+                                    </div>
+                                    <div class="panel-body">Panel Content</div>
+                                </div>
+                                <table border="1"><!--class="table-condensed"-->
+                                    <tr> <!--class="header-table-all-places"-->
+                                        <td style="text-align: center; padding: 10px">
+                                            <!--<div>-->
+                                            <?= isset($arr[$parent_id][$i]['type_place']) ? htmlspecialchars($arr[$parent_id][$i]->type_place) : '' ?>
+                                            <!--</div>-->
+                                        </td>
+                                        <td style="text-align: center; padding: 10px">
+                                            <?= isset($arr[$parent_id][$i]['name']) ? htmlspecialchars($arr[$parent_id][$i]['name']) : '' ?>
+                                        </td>
                                         <!--<div>-->
-                                        <?= isset($arr[$parent_id][$i]['type_place']) ? htmlspecialchars($arr[$parent_id][$i]->type_place) : '' ?>
+                                        <!-- </tr>
+                                         <tr>-->
+                                        <td>
+                                            <a href="#?action=add_place&parent_id=<?= $arr[$parent_id][$i]['parent_id'] ?>&place_id=<?= $arr[$parent_id][$i]['id'] ?>">Add
+                                                place</a>
+                                        </td>
+                                        <td>
+                                            <a href="#?action=edit_place&parent_id=<?= $arr[$parent_id][$i]['parent_id'] ?>&place_id=<?= $arr[$parent_id][$i]['id'] ?>">Edit</a>
+                                        </td>
+                                        <td>
+                                            <a href="#?action=delete_place&parent_id=<?= $arr[$parent_id][$i]['parent_id'] ?>&place_id=<?= $arr[$parent_id][$i]['id'] ?>">Delete</a>
+                                        </td>
+                                        <td>
+                                            <a href="#?action=delete_place&parent_id=<?= $arr[$parent_id][$i]['parent_id'] ?>&place_id=<?= $arr[$parent_id][$i]['id'] ?>">Audit</a>
+                                        </td>
                                         <!--</div>-->
-                                    </td>
-                                    <td>
-                                        <p> <?= isset($arr[$parent_id][$i]['name']) ? htmlspecialchars($arr[$parent_id][$i]['name']) : '' ?></p>
-                                    </td>
-                                    <!--<div>-->
-                               <!-- </tr>
-                                <tr>-->
-                                    <td>
+
+                                    </tr>
+                                </table>
+                                <?php
+                                self::buildTreePlace($arr, $arr[$parent_id][$i]['id']);
+                                /*viewPlaces($arr, $arr[$parent_id][$i]['id']);*/
+                                ?>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        <?php }
+    }
+
+    protected function buildTreePlaceNew($arr, $parent_id = 0)
+    {
+        if (empty($arr[$parent_id])) {
+            return;
+        } else { ?>
+            <div class="content">
+                <div class="panel-group">
+                    <ul>
+                        <?php
+                        for ($i = 0; $i < count($arr[$parent_id]); $i++) {
+                            ?>
+                            <li>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h4><?= isset($arr[$parent_id][$i]['type_place']) ? htmlspecialchars($arr[$parent_id][$i]->type_place) : '' ?>
+                                            : <?= isset($arr[$parent_id][$i]['name']) ? htmlspecialchars($arr[$parent_id][$i]['name']) : '' ?></h4>
+                                    </div>
+                                    <div class="panel-body">
                                         <a href="#?action=add_place&parent_id=<?= $arr[$parent_id][$i]['parent_id'] ?>&place_id=<?= $arr[$parent_id][$i]['id'] ?>">Add
                                             place</a>
-                                    </td>
-                                    <td>
-                                        <a href="#?action=edit_place&parent_id=<?= $arr[$parent_id][$i]['parent_id'] ?>&place_id=<?= $arr[$parent_id][$i]['id'] ?>">Edit</a>
-                                    </td>
-                                    <td>
+                                        <a href="#?action=edit_place&place_id=<?= $arr[$parent_id][$i]['id'] ?>">Edit</a>
                                         <a href="#?action=delete_place&parent_id=<?= $arr[$parent_id][$i]['parent_id'] ?>&place_id=<?= $arr[$parent_id][$i]['id'] ?>">Delete</a>
-                                    </td>
-                                    <td>
-                                        <a href="#?action=delete_place&parent_id=<?= $arr[$parent_id][$i]['parent_id'] ?>&place_id=<?= $arr[$parent_id][$i]['id'] ?>">Audit</a>
-                                    </td>
-                                    <!--</div>-->
-                                    <?php
-                                    self::buildTreePlace($arr, $arr[$parent_id][$i]['id']);
-                                    /*viewPlaces($arr, $arr[$parent_id][$i]['id']);*/
-                                    ?>
-                                </tr>
-                            </table>
-                        </li>
-                    <?php } ?>
-                </ul>
+                                        <a href="#?action=audit_place&place_id=<?= $arr[$parent_id][$i]['id'] ?>">Audit</a>
+                                    </div>
+                                </div>
+                                <?php
+                                self::buildTreePlaceNew($arr, $arr[$parent_id][$i]['id']);
+                                /*viewPlaces($arr, $arr[$parent_id][$i]['id']);*/
+                                ?>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
             </div>
         <?php }
     }

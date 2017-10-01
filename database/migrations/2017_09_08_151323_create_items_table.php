@@ -18,12 +18,12 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->bigInteger('identification_number')->unique();
             $table->string('serial_number');
-            $table->string('specifications');
-            $table->date('date_create');
-            $table->date('date_buy');
-            $table->decimal('coast', 9, 2);
-            $table->date('date_input_use');
-            $table->string('guarantee', 10);
+            $table->string('specifications')->nullable();
+            $table->date('date_create')->nullable();
+            $table->date('date_buy')->nullable();
+            $table->decimal('coast', 9, 2)->nullable();
+            $table->date('date_input_use')->nullable();
+            $table->string('guarantee', 10)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

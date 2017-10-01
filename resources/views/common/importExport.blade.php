@@ -34,7 +34,7 @@
             <form style="border: 4px solid #a1a1a1;margin-top: 15px;margin-right: 55px;padding: 15px;" action="{{ url('importExcel') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
                 <input type="file" name="import_file" />
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button class="btn btn-primary">Import File</button>
+                <button class="btn btn-success">Import File</button>
             </form>
         </div>
     </nav>

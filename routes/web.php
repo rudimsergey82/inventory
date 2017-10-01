@@ -56,3 +56,10 @@ Route::get('/printPreview','PrintController@printPreview');
 
 Route::get('/QR/{id}','QRCodeController@getQRCodeItem');
 
+Route::get('importExport', 'CsvController@importExport');
+
+Route::get('downloadExcel/{type}', 'CsvController@downloadExcel');
+
+Route::post('importExcel', 'CsvController@importExcel');
+
+

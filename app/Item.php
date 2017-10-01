@@ -16,7 +16,9 @@ class Item extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['name', 'identification_number', 'serial_number', 'specifications', 'date_create', 'date_buy', 'coast', 'date_input_use', 'guarantee'];
+    public $fillable = ['name', 'identification_number',
+        'serial_number', 'specifications', 'date_create',
+        'date_buy', 'coast', 'date_input_use', 'guarantee'];
 
 
     public function placeItem()

@@ -19,12 +19,12 @@ class Audit extends Model
 
     public function place()
     {
-        return $this->belongsTo('App\Place', 'id');
+        return $this->belongsTo('App\Place', 'place_id', 'id');
     }
 
     public function auditItem()
     {
-        return $this->hasMany('audit_item', 'id');
+        return $this->hasMany('App\AuditItem', 'id', 'audit_items_id');
     }
 
 }

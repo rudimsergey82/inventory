@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Input;
-use Illuminate\Http\Request;
 use App\Item;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
+
 class CsvController extends Controller
 {
-
 
     public function importExport()
     {
@@ -26,11 +26,7 @@ class CsvController extends Controller
         })->download($type);
     }
 
-
-
     //saving to db logic goes here
-
-
     public function importExcel()
     {
         if(Input::hasFile('import_file')){
@@ -40,10 +36,15 @@ class CsvController extends Controller
             if(!empty($data) && $data->count()){
                 dump($data);
                 foreach ($data as $key => $value) {
-                    $insert[] = ['name' => $value->name, 'identification_number' => $value->identification_number,
-                        'serial_number' => $value->serial_number,'specifications' => $value->specifications,
-                        'date_create' => $value->date_create, 'date_buy' => $value->date_buy,
-                        'coast' => $value->coast,'date_input_use' => $value->date_input_use,
+                    $insert[] = [
+                        'name' => $value->name,
+                        'identification_number' => $value->identification_number,
+                        'serial_number' => $value->serial_number,
+                        'specifications' => $value->specifications,
+                        'date_create' => $value->date_create,
+                        'date_buy' => $value->date_buy,
+                        'coast' => $value->coast,
+                        'date_input_use' => $value->date_input_use,
                         'guarantee' => $value->guarantee];
                 }
                 if(!empty($insert)){

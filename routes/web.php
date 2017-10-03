@@ -36,15 +36,10 @@ Route::get('/addPlace', 'AddPlaceFormController@index');
 Route::post('/addPlace', 'AddPlaceFormController@addPlace');
 //Route::post('/addPlace', 'AddPlaceFormController@store');
 
-
-Route::get('importExport', 'AddFileController@importExport');
-Route::get('downloadExcel/{type}', 'AddFileController@downloadExcel');
-Route::post('importExcel', 'AddFileController@importExcel');
-
-
 Route::get('place-tree-view',['uses'=>'PlaceController@managePlace']);
 Route::post('add-place',['as'=>'add.place','uses'=>'PlaceController@addPlace']);
 
+Route::resource('places','PlaceNewController');
 
 //Route::get('treePlaces', 'PlaceController@showTreePlace');
 

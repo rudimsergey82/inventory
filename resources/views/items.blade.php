@@ -6,7 +6,7 @@
             <h2>All items</h2>
             <table class="table-all-items" border="1">
                 <tr class="header-table-all-items">
-                    <th class="header-table"></th>
+                    <th class="header-table">Action</th>
                     <th class="header-table">Number</th>
                     <th class="header-table">Name</th>
                     <th class="header-table">Identification number</th>
@@ -21,7 +21,6 @@
                 </tr>
                 @foreach($items as $item)
                     <tr>
-                        {{--<td><submit>View</submit></td>--}}
                         <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->id}}" role="button">V</a>
                         </td>
                         <td>{{ $item->id }}</td>
@@ -56,47 +55,6 @@
                 });
             </script>
         </div>
-
-    <div class="panel-body">
-
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success" role="alert">
-                {{ Session::get('success') }}
-            </div>
-        @endif
-
-        @if ($message = Session::get('error'))
-            <div class="alert alert-danger" role="alert">
-                {{ Session::get('error') }}
-            </div>
-        @endif
-
-        <h3>Import file to Database:</h3>
-            <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;" action="{{ URL::to('importExcel') }}"
-                  class="form-horizontal" method="post" enctype="multipart/form-data">
-                <input type="file" name="import_file" />
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button class="btn btn-success btn-lg">Import File</button>
-            </form>
-        {{--<form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px;" action="{{ url('importExcel') }}
-                " class="form-horizontal" method="post" enctype="multipart/form-data">
-
-            <input type="file" name="import_file" />
-            {{ csrf_field() }}
-            <br/>
-
-            <button class="btn btn-lg btn-success">Import CSV or Excel File</button>
-
-        </form>--}}
-        <br/>
-
-
-        <h3>Export file from Database:</h3>
-        <div style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px;">
-            <a href="{{ url('downloadExcel/xlsx') }}"><button class="btn btn-success btn-lg">Download Excel xlsx</button></a>
-            <a href="{{ url('downloadExcel/csv') }}"><button class="btn btn-success btn-lg">Download CSV</button></a>
-        </div>
-
-    </div>
+    @include('common.importExport')
     </div>
 @endsection

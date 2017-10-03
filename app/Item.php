@@ -21,8 +21,8 @@ class Item extends Model
         'date_buy', 'coast', 'date_input_use', 'guarantee'];
 
 
-    public function placeItem()
+    public function auditItems()
     {
-        return $this->hasOne('App\PlaceItem', 'item_id', 'id');
+        return $this->hasMany('App\AuditItem', 'item_id', 'id');
     }
 }

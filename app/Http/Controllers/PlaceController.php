@@ -12,7 +12,7 @@ class PlaceController extends Controller
     {
         if (view()->exists('showPlace')) {
             $tree = $this->buildTree();
-            /*dump($tree);*/
+            dump($tree);
             ob_start();
             $this->buildTreePlaceNew($tree);
             $treePlaces = ob_get_contents();
@@ -77,7 +77,7 @@ class PlaceController extends Controller
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
                                         <h4><?= isset($arr[$parent_id][$i]['type_place']) ? htmlspecialchars($arr[$parent_id][$i]->type_place) : '' ?>
-                                            : <?= isset($arr[$parent_id][$i]['name']) ? htmlspecialchars($arr[$parent_id][$i]['name']) : '' ?></h4>
+                                            : <?= isset($arr[$parent_id][$i]['name_place']) ? htmlspecialchars($arr[$parent_id][$i]['name_place']) : '' ?></h4>
                                     </div>
                                     <!--<div class="panel-body">
                                         <a href="#?action=add_place&parent_id=<?/*= $arr[$parent_id][$i]['parent_id'] */?>&place_id=<?/*= $arr[$parent_id][$i]['id'] */?>">Add
@@ -107,7 +107,7 @@ class PlaceController extends Controller
     public function managePlace()
     {
         $places = Place::where('parent_id', '=', 0)->get();
-        $allPlaces = Place::pluck('name', 'id')->all();
+        $allPlaces = Place::pluck('name_place', 'id')->all();
         return view('placeTreeView', compact('places', 'allPlaces'));
     }
 

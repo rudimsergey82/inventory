@@ -6,6 +6,7 @@ use App\Place;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\DB;
 
 
 class PlaceNewController extends Controller
@@ -56,6 +57,10 @@ class PlaceNewController extends Controller
             'type_place' => 'required',
             'name' => 'required',
         ]);*/
+        $this->validate($request, [
+            'type_place' => 'required',
+            'name' => 'required',
+        ]);
         Place::create($request->all());
         return redirect()->route('places.index')
             ->with('success','Place created successfully');
@@ -71,10 +76,19 @@ class PlaceNewController extends Controller
     {
         //
         $place = Place::find($id);
+        $parent = Place::find($place->parent_id);
+        $childs = Place::all()->where('parent_id', '=', $id)/*->get()*/;
+        $items = DB::table('places')
+            ->where('places.id', '=', $id)
+            ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
+            ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
+            ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
+            ->get();
         /*dump($place);
-        dump($place->parent);*/
-        return view('places.show',compact('place'));
-
+        dump($parent);
+        dump($childs);
+        dump($items);*/
+        return view('places.show',compact('place', 'parent', 'childs', 'items'))->with('i');
     }
 
     /**
@@ -87,12 +101,13 @@ class PlaceNewController extends Controller
     {
         //
         $place = Place::find($id);
-        $parent = $place->parent;
+        $parent = $place->parent()->first();
+        $name_parent = $parent->name_place;
+        dump($place);
+        dump($parent);
+        dump($parent->name_place);
 
-/*        dump($place);
-        dump($parent);*/
-
-        return view('places.edit', compact('place', 'parent'));
+        return view('places.edit', compact('place', 'name_parent'));
     }
 
     /**
@@ -106,9 +121,13 @@ class PlaceNewController extends Controller
     {
         //
         /*request()->validate([
-            'tape' => 'required',
+            'type' => 'required',
             'name' => 'required',
         ]);*/
+        $this->validate($request, [
+            'type_place' => 'required',
+            'name' => 'required',
+        ]);
         Place::find($id)->update($request->all());
         return redirect()->route('places.index')
             ->with('success','Place updated successfully');

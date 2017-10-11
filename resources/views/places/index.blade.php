@@ -29,7 +29,7 @@
             <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $place->type_place}}</td>
-                <td>{{ $place->name}}</td>
+                <td>{{ $place->name_place}}</td>
                 <td>
                     <a class="btn btn-info" href="{{ route('places.show',$place->id) }}">Show</a>
                     <a class="btn btn-primary" href="{{ route('places.edit',$place->id) }}">Edit</a>

@@ -17,6 +17,6 @@ class AuditItem extends Model
     }
 
     public function item(){
-        return $this->belongsTo('App\Item', 'item_id', 'id');
+        return $this->belongsTo('App\Item', 'item_id', 'item_id');
     }
 }

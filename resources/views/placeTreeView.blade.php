@@ -18,7 +18,7 @@
                     <ul id="tree1">
                         @foreach($places as $place)
                             <li>
-                                {{ $place->name }}
+                                {{ $place->name_place }}
                                 @if(count($place->childs))
                                     @include('manageChild',['childs' => $place->childs])
                                 @endif

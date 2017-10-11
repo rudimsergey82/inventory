@@ -8,7 +8,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Name:</strong>
-            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control','style'=>'height:100px')) !!}
+            {!! Form::text('name_place', null, array('placeholder' => 'Name','class' => 'form-control','style'=>'height:100px')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">

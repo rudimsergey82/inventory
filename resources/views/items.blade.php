@@ -3,6 +3,18 @@
 @section('content')
     <div class="container">
         <div class="body_item_form">
+            <style>
+                table {
+                    border-collapse: collapse; /* Убираем двойные линии */
+                    width: 100%; /* Ширина таблицы */
+                    border-spacing: 0; /* Расстояние между ячеек */
+                }
+                td, th {
+                    border: 1px solid #333; /* Параметры границ */
+                    padding: 1px; /* Поля в ячейках */
+                    text-align: center; /* Выравнивание по центру */
+                }
+            </style>
             <h2>All items</h2>
             <table class="table-all-items" border="1">
                 <tr class="header-table-all-items">
@@ -21,10 +33,10 @@
                 </tr>
                 @foreach($items as $item)
                     <tr>
-                        <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->id}}" role="button">V</a>
+                        <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->item_id}}" role="button">V</a>
                         </td>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->name }}</td>
+                        <td>{{ ++$i }}</td>
+                        <td>{{ $item->name_item or 'No item'}}</td>
                         <td>{{ $item->identification_number }}</td>
                         <td>{{ $item->serial_number }}</td>
                         <td>{{ $item->specifications }}</td>
@@ -33,7 +45,7 @@
                         <td>{{ $item->coast }}</td>
                         <td>{{ $item->date_input_use }}</td>
                         <td>{{ $item->guarantee }}</td>
-                        <td>place</td>
+                        <td>{{ $item->type_place }} {{ $item->name_place or 'No place'}}</td>
                     </tr>
                 @endforeach
             </table>

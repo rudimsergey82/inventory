@@ -24,6 +24,10 @@ Route::get('audit', 'AuditController@index');
 Route::get('/items', 'ItemController@index');
 
 Route::get('/item/{id}', 'ItemController@showItem');
+Route::post('/item/addPlace', 'ItemController@addPlace');
+
+Route::post('/item/addAudit', 'AuditController@addAudit');
+Route::post('/place/addAudit', 'AuditController@addAudit');
 
 Route::get('/addItem', 'AddItemFormController@index');
 
@@ -40,6 +44,7 @@ Route::get('place-tree-view',['uses'=>'PlaceController@managePlace']);
 Route::post('add-place',['as'=>'add.place','uses'=>'PlaceController@addPlace']);
 
 Route::resource('places','PlaceNewController');
+Route::resource('auditItems','AuditItemController');
 
 //Route::get('treePlaces', 'PlaceController@showTreePlace');
 

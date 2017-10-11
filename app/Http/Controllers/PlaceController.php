@@ -12,7 +12,7 @@ class PlaceController extends Controller
     {
         if (view()->exists('showPlace')) {
             $tree = $this->buildTree();
-            dump($tree);
+            //dump($tree);
             ob_start();
             $this->buildTreePlaceNew($tree);
             $treePlaces = ob_get_contents();

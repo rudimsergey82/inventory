@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
@@ -8,21 +8,32 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="">
     <meta name="author" content="">
-    {{--<link rel="icon" href="../../../../favicon.ico">--}}
-
     <title>{{ config('app.name', 'Inventory') }}</title>
 
     <!-- Bootstrap core CSS -->
+    <link href={{url('css/ui/jquery-ui.min.css')}} rel="stylesheet">
     <link href={{url('css/bootstrap.min.css')}} rel="stylesheet">
+    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
 
     <!-- Custom styles for this template -->
     <link href="{{asset("css/justified-nav.css")}}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/ui/jquery-ui.min.js') }}"></script>
     {{--Include Print Preview Script from Rudim S--}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://www.position-absolute.com/creation/print/jquery.printPage.js"></script>
-    <script src="{{asset('js/js/printPage.js')}}"></script>
+    <script src="{{ asset('js/printPage.js') }}"></script>
+
+    <script src="{{ asset('js/audit.js') }}"></script>
+{{--    <script>
+        $( function() {
+            $( "#tabs" ).tabs();
+        } );
+    </script>--}}
+
+
 </head>
 
 <body>
@@ -37,7 +48,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav text-md-center nav-justified w-100">
+                    <ul class="nav navbar-nav text-md-center nav-justified w-100">
                         <li class="nav-item active">
                             <a class="nav-link" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
                         </li>
@@ -47,8 +58,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('items')}}">Items</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('place')}}">Places</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Places</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                <a class="dropdown-item" href="{{url('place')}}">Tree places</a>
+                                <a class="dropdown-item" href="{{url('places')}}">Manager places</a>
+                                <a class="dropdown-item" href="{{url('places/create')}}">Create new place</a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('about')}}">About</a>
@@ -109,25 +126,8 @@
         </footer>
     </div>
 </div> <!-- /container -->
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="{{ asset('js/app.js') }}"></script>
-{{--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-
-<script src={{url("js/js/bootstrap.js")}}></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="{{ asset('js/printPage.js') }}"></script>
-
-{{--<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--}}
-
 </body>
 </html>
+
+
+

@@ -6,7 +6,7 @@
             <h2>Item</h2>
             <table class="table-all-items" border="1">
                 <tr class="header-table-all-items">
-                    <th class="header-table"></th>
+                    <th class="header-table">Action</th>
                     <th class="header-table">Number</th>
                     <th class="header-table">Name</th>
                     <th class="header-table">Identification number</th>

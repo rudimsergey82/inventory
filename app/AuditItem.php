@@ -11,12 +11,12 @@ class AuditItem extends Model
     //
     protected $dates = ['deleted_at'];
 
-    public function place()
+    public function audit()
     {
-        return $this->belongsTo('App\Audit', 'id');
+        return $this->belongsTo('App\Audit'/*, 'audits_items_id', 'id'*/);
     }
 
     public function item(){
-        return $this->hasOne('App\Item', 'id');
+        return $this->belongsTo('App\Item', 'item_id', 'id');
     }
 }

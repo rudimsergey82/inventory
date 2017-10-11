@@ -1,7 +1,7 @@
 <ul>
     @foreach($childs as $child)
         <li>
-            {{ $child->name }}
+            {{ $child->name_place }}
             @if(count($child->childs))
                 @include('manageChild',['childs' => $child->childs])
             @endif

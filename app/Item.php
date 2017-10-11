@@ -10,19 +10,19 @@ class Item extends Model
     use SoftDeletes;
     //
     protected $table = 'items';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'item_id';
     public $incrementing = TRUE;
     public $timestamps = TRUE;
 
     protected $dates = ['deleted_at'];
 
-    public $fillable = ['name', 'identification_number',
+    public $fillable = ['name_item', 'identification_number',
         'serial_number', 'specifications', 'date_create',
         'date_buy', 'coast', 'date_input_use', 'guarantee'];
 
 
     public function auditItems()
     {
-        return $this->hasMany('App\AuditItem', 'item_id', 'id');
+        return $this->hasMany('App\AuditItem', 'item_id', 'item_id');
     }
 }

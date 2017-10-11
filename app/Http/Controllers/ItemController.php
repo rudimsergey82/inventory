@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Item;
 use App\AuditItem;
+use App\Item;
+use App\Place;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\QRCodeController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class ItemController extends Controller
@@ -32,7 +34,7 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $item = new Item;
-        $item->name = $request->name;
+        $item->name_item = $request->name;
         $item->identification_number = $request->identification;
         $item->serial_number = $request->serial;
         $item->specifications = $request->specifications;
@@ -47,46 +49,87 @@ class ItemController extends Controller
     public function index()
     {
         if (view()->exists('items')) {
+            /*$aud = AuditItem::find(1);
+            dump($aud);
+            $ite = $aud->item;
+            dump($ite);
+            $it = Item::find(1);
+            dump($it);
+            $au = $it->auditItems;
+            dump($au);*/
             $items = $this->getItems();
-            return view('items')->with(['items' => $items]);
+            return view('items', compact('items'))->with('i');
         }
         abort(404);
     }
 
     public function getItems()
     {
-        $items = Item::all();
+        /*$items1 = Item::all();
+        dump($items1);*/
+        $items = DB::table('places')
+            ->rightjoin('audits', 'places.id', '=', 'audits.place_id')
+            ->rightjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
+            ->rightjoin('items', 'audit_items.item_id', '=', 'items.item_id')
+            ->get();
+        /*dump($items);*/
         return $items;
     }
 
     public function showItem($id)
     {
         if (view()->exists('showItem')) {
+            /*$item = Item::find($id);
+            dump($item);*/
             $item = $this->getItem($id);
+            $audit = Item::find($id)->auditItems;
+            /*dump($audit);*/
+            $places = Place::all();
+            /*dump($places);*/
             $QRCodeController = new QRCodeController;
             $QR = $QRCodeController->getQRCodeItem($id);
-            return view('showItem'/*, QRCodeController@*/)->with(['item' => $item, 'QR' => $QR]);
+            return view('showItem', compact('id','item','audit','places','QR'))->with('i');
         }
         abort(404);
     }
 
     public function getItem($id)
     {
-        $item = Item::find($id);
+        /*$item0 = Item::find($id);
+        dump($item0);*/
+        /*$item = DB::table('places')
+            ->rightjoin('audits', 'places.id', '=', 'audits.place_id')
+            ->rightjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
+            ->rightjoin('items', 'audit_items.item_id', '=', 'items.item_id')
+            ->where('items.item_id', '=', $id)
+            ->get();
+        dump($item);*/
+        $item = DB::table('items')
+            ->where('items.item_id', '=', $id)
+            ->leftjoin('audit_items', 'items.item_id', '=', 'audit_items.item_id')
+            ->leftjoin('audits', 'audit_items.audit_id', '=', 'audits.id')
+            ->leftjoin('places', 'audits.place_id', '=', 'places.id')
+            ->get();
+        /*dump($item);*/
+
         return $item;
     }
 
     /**
      * @param mixed $items
      */
-/*    public static function setItems($array)
+    /*    public static function setItems($array)
+        {
+             self::$items = $array;
+             foreach (self::$items as $item){
+                 $this->store($item);
+             }
+
+             return ;
+        }*/
+
+    protected function addPlace($id, Request $request)
     {
-         self::$items = $array;
-         foreach (self::$items as $item){
-             $this->store($item);
-         }
 
-         return ;
-    }*/
-
+    }
 }

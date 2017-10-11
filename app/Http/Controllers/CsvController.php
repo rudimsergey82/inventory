@@ -38,7 +38,7 @@ class CsvController extends Controller
             $data = Excel::load($path, function($reader) {
             })->get();
             if(!empty($data) && $data->count()){
-                dump($data);
+                /*dump($data);*/
                 foreach ($data as $key => $value) {
                     $insert[] = ['name' => $value->name, 'identification_number' => $value->identification_number,
                         'serial_number' => $value->serial_number,'specifications' => $value->specifications,
@@ -47,7 +47,7 @@ class CsvController extends Controller
                         'guarantee' => $value->guarantee];
                 }
                 if(!empty($insert)){
-                   dump($insert);
+                   /*dump($insert);*/
                    /* Item::create(
                         [
                             'name' => $insert['name'],
@@ -62,7 +62,8 @@ class CsvController extends Controller
                         ]
                     );*/
                    DB::table('items')->insert($insert);
-                    dd('Insert Record successfully.');
+                    /*dd('Insert Record successfully.');*/
+                    return redirect('/items')->with('error','Insert Record successfully.');
                 }
             }
 

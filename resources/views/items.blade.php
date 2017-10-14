@@ -63,24 +63,18 @@
                 @endforeach
             </table>
         </div>
-
-        {{--<div class="visible-print text-center">
-            {!! QrCode::size(100)->generate(Request::url()) !!}
-            <p>Сканируйте меня, чтобы вернуться на исходную страницу.</p>
-        </div>--}}
-
-        {{--<div>
-            <p><a class="btn btn-lg btn-success" href="{{url('addItem')}}" role="button">Add item</a></p>
-        </div>--}}
-        <br>
-        <div>
-            <p><a href="{{URL::to('printPreview')}}" class="btn btn-lg btn-primary">Print all items</a></p>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    $('.btn-primary').printPage();
-                });
-            </script>
-        </div>
+        <p>Scan me, to return page</p>
+    </div>
+    <br>
+    <div>
+        <p><a href="{{URL::to('printPreview')}}" class="btn btn-lg btn-primary">Print all items</a></p>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.btn-primary').printPage();
+            });
+        </script>
+    </div>
+    <div>
         @include('common.importExport')
     </div>
 @endsection

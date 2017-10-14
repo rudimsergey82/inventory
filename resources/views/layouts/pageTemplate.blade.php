@@ -26,7 +26,6 @@
     <script src="{{ asset('js/ui/jquery-ui.min.js') }}"></script>
     {{--Include Print Preview Script from Rudim S--}}
     <script src="{{ asset('js/printPage.js') }}"></script>
-
     <script src="{{ asset('js/audit.js') }}"></script>
 
 {{--    <script>

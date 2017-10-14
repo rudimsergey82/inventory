@@ -30,4 +30,10 @@ class PrintController extends Controller
         return view('printPreview', compact('items'));
     }
 
+    public function printPreviewItem($id){
+
+        $itemPrint = Item::find($id);
+        return view('itemPrint', compact('itemPrint'))/*-> with('itemPrint', $itemPrint)*/;
+    }
+
 }

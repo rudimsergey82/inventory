@@ -65,6 +65,15 @@
             {{--{!! QrCode::size(100)->generate(Request::url()); !!}--}}
             <p>Scan me for inventory</p>
         </div>
+
+        <div>
+            <p><a href="{{URL::to('itemPrint', $num->item_id)}}" class="btn btn-lg btn-primary">Print item</a></p>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $('.btn-primary').printPage();
+                });
+            </script>
+        </div>
         {{--</div>--}}
         <br>
 
@@ -108,7 +117,7 @@
                         @endforeach
                     </select>
                     <input type="hidden" name="item_id" value="{{ $id }}">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn-lg btn-success">Submit</button>
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -135,7 +144,7 @@
                     </select>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     {{--<input type="submit" class="form-item" value="Add Audit">--}}
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn-lg btn-success">Submit</button>
                 {{--</form>--}}
                 {!! Form::close() !!}
 

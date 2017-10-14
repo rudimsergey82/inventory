@@ -54,6 +54,8 @@ Route::resource('auditItems','AuditItemController');
 
 Route::get('/printPreview','PrintController@printPreview');
 
+Route::get('/itemPrint/{id}','PrintController@printPreviewItem');
+
 Route::get('/QR/{id}','QRCodeController@getQRCodeItem');
 
 Route::get('importExport', 'CsvController@importExport');

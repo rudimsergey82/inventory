@@ -80,15 +80,18 @@ class ItemController extends Controller
     {
         if (view()->exists('showItem')) {
             /*$item = Item::find($id);
-            dump($item);*/
+            */
             $item = $this->getItem($id);
-            $audit = Item::find($id)->auditItems;
+            /**/
+            $num = Item::find($id);
+            dump($num);
+            $audit = $num->auditItems;
             /*dump($audit);*/
             $places = Place::all();
             /*dump($places);*/
             $QRCodeController = new QRCodeController;
             $QR = $QRCodeController->getQRCodeItem($id);
-            return view('showItem', compact('id','item','audit','places','QR'))->with('i');
+            return view('showItem', compact('id','item','audit','places','num', 'QR'))->with('i');
         }
         abort(404);
     }

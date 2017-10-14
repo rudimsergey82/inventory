@@ -53,7 +53,7 @@
 
         <div class="visible-print text-center">
             {!! QrCode::size(100)->generate(Request::url()) !!}
-            <p>Сканируйте меня, чтобы вернуться на исходную страницу.</p>
+            <p>Scan me, to return page</p>
         </div>
 
         <div>

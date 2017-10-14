@@ -25,6 +25,7 @@ Route::get('/items', 'ItemController@index');
 
 Route::get('/item/{id}', 'ItemController@showItem');
 Route::post('/item/addPlace', 'ItemController@addPlace');
+Route::get('failItems', 'ItemController@failItems');
 
 Route::post('/item/addAudit', 'AuditController@addAudit');
 Route::post('/place/addAudit', 'AuditController@addAudit');
@@ -50,7 +51,6 @@ Route::resource('auditItems','AuditItemController');
 
 /*Route::get('place', 'PlaceController@index');*/
 
-/*Route::get('/','PrintController@index');*/
 
 Route::get('/printPreview','PrintController@printPreview');
 

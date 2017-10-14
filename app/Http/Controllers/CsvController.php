@@ -37,7 +37,7 @@ class CsvController extends Controller
                 /*dump($data);*/
                 foreach ($data as $key => $value) {
                     $insert[] = [
-                        'name' => $value->name,
+                        'name_item' => $value->name_item,
                         'identification_number' => $value->identification_number,
                         'serial_number' => $value->serial_number,
                         'specifications' => $value->specifications,

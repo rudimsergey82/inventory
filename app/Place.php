@@ -15,7 +15,7 @@ class Place extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['name', 'type_place', 'last_audit', /*'full_path',*/ 'parent_id'];
+    protected $fillable = ['name_place', 'type_place', 'last_audit', 'path', 'parent_id'];
 
 
     public function childs()

@@ -133,7 +133,7 @@
                             <option value="{{ $place->id }}">{{ $place->type_place }} {{$place->name_place}}</option>
                         @endforeach--}}
                     </select>
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
                     {{--<input type="submit" class="form-item" value="Add Audit">--}}
                     <button type="submit" class="btn btn-primary">Submit</button>
                 {{--</form>--}}

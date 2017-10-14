@@ -52,7 +52,7 @@ class AuditItemController extends Controller
             ->get();
         dump($places);
 
-        return view('auditItem.index', compact('auditItems'))->with('i');
+        return view('audits.index', compact('auditItems'))->with('i');
 
     }
 
@@ -64,7 +64,7 @@ class AuditItemController extends Controller
     public function create()
     {
         //
-        return view('auditItem.create');
+        return view('audits.create');
     }
 
     /**
@@ -77,7 +77,7 @@ class AuditItemController extends Controller
     {
         //
         AuditItem::create($request->all());
-        return redirect()->route('auditItem.index')
+        return redirect()->route('audits.index')
             ->with('success', 'Audit created successfully');
     }
 
@@ -91,7 +91,7 @@ class AuditItemController extends Controller
     {
         //
         $auditItem = AuditItem::find($id);
-        return view('auditItem.show', compact('auditItem'));
+        return view('audits.show', compact('auditItem'));
     }
 
     /**
@@ -104,7 +104,7 @@ class AuditItemController extends Controller
     {
         //
         $auditItem = AuditItem::find($id);
-        return view('auditItem.edit', compact('auditItem'));
+        return view('audits.edit', compact('auditItem'));
     }
 
     /**
@@ -118,7 +118,7 @@ class AuditItemController extends Controller
     {
         //
         AuditItem::find($id)->update($request->all());
-        return redirect()->route('auditItem.index')
+        return redirect()->route('audits.index')
             ->with('success', 'Audit updated successfully');
     }
 
@@ -132,7 +132,7 @@ class AuditItemController extends Controller
     {
         //
         AuditItem::find($id)->delete();
-        return redirect()->route('auditItem.index')
+        return redirect()->route('audits.index')
             ->with('success', 'Place deleted successfully');
     }
 }

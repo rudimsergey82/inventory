@@ -14,7 +14,7 @@ class AddItemFormController extends Controller
     protected $item;
     public function index()
     {
-        dump($_POST);
+        /*dump($_POST);*/
         return view('addItemForm');
     }
 

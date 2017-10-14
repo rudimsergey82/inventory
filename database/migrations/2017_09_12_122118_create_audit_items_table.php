@@ -20,6 +20,7 @@ class CreateAuditItemsTable extends Migration
             $table->integer('item_id')->unsigned();
             $table->foreign('item_id')->references('id')->on('items');
             $table->enum('item_status', ['ok', 'fail', 'new'])->default('ok');
+            $table->date('item_date_check');
             $table->timestamps();
             $table->softDeletes();
         });

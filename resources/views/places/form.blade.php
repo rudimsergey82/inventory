@@ -14,8 +14,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Parent:</strong>
-            {{--{!! Form::text('parent', null, array('placeholder' => 'Name parent','class' => 'form-control','style'=>'height:50px')) !!}--}}
-            {!! Form::select('parent_id', $allPlaces, old('parent_id'), ['class'=>'form-control', 'style'=>'height:50px', 'placeholder'=>'Select Place']) !!}
+            {!! Form::select('parent_id', $allPlaces, old('parent_id'), ['class'=>'form-control', 'style'=>'height:100px', 'placeholder'=>'Select Place']) !!}
         </div>
     </div>
     <input type="hidden" name="_token" value="{{ csrf_token() }}">

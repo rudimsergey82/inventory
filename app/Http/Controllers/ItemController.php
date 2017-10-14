@@ -33,6 +33,18 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'identification' => 'required|integer|max:255|unique',
+            'serial' => 'required|string|max:255',
+            'specifications' => 'string|max:255',
+            'dt_create' => 'date',
+            'dt_buy' => 'date',
+            'coast' => 'decimal|max:100',
+            'dt_input_use' => 'date',
+            'guarantee' => 'string|max:255',
+        ]);
+
         $item = new Item;
         $item->name_item = $request->name;
         $item->identification_number = $request->identification;

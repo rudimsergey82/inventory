@@ -34,7 +34,7 @@
                             <option data-class="avatar" name="new">New</option>
                         </select>
                     </td>
-                    <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->id}}"
+                    <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->item_id}}"
                            role="button">V</a>
                     </td>
                 </tr>

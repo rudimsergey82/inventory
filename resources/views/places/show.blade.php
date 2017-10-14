@@ -161,6 +161,9 @@
                         <button type="submit" class="btn btn-primary">Add Audits</button>
                         {!! Form::close() !!}
                     @endif
+                    <div>
+                        <a class="btn btn-primary" href="#{{--{{ route('places.index',$place->id) }}--}}"> Add new items</a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,9 +2,9 @@
     {!! Form::open(array('url' => 'place/addAudit','method'=>'POST')) !!}
         <div class="row">
             <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
+                {{--<div class="pull-left">
                     <h2>Manager places</h2>
-                </div>
+                </div>--}}
             </div>
         </div>
 {{--        @if ($message = Session::get('success'))
@@ -19,7 +19,7 @@
                 <th>Place</th>
                 <th>Date check</th>
                 <th>Select new check</th>
-                <th{{-- width="280px"--}}>Action</th>
+                <th>Action</th>
             </tr>
             @foreach ($auditPlaces as $place)
                 <tr>

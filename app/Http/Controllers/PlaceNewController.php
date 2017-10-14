@@ -71,44 +71,41 @@ class PlaceNewController extends Controller
         $parent = Place::find($place->parent_id);
         /*dump($parent);
         dump($id);*/
-        $items1 = DB::table('places')
+        /*$items1 = DB::table('places')
             ->where('places.id', '=', $id)
             ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
             ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
             ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
             ->get();
-        dump($items1);
-        dump($place->path.'%');
+        dump($items1);*/
         $items = DB::table('places')
             ->where('places.path', 'like', $place->path.'%' )
             ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
             ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
             ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
             ->get();
-        dump($items);
+       /* dump($items);*/
 
-        if (isset($childs)) {
+        /*if (isset($childs)) {
             $arr = [];
             foreach ($childs as $value) {
                 $arr[] = $value->id;
-                /*if (isset($value->parent_id))*/
             }
-            /*dump($arr);*/
-        }
+        }*/
 
-        $childItems = DB::table('places')
+        /*$childItems = DB::table('places')
             ->whereIn('places.id', $arr )
             ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
             ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
             ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
-            ->get();
+            ->get();*/
 
         /*dump($tree);*/
          /*dump($parent);*/
 
          /*dump($items);
          dump($childItems);*/
-        return view('places.show', compact('place', 'parent', 'childs', 'items', 'childItems'))->with('i');
+        return view('places.show', compact('place', 'parent', 'childs', 'items'))->with('i');
     }
 
     protected function getChilds($id)

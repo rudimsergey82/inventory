@@ -119,7 +119,8 @@ class PlaceController extends Controller
     public function addPlace(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'type_place' => 'required',
+            'name_place' => 'required',
         ]);
         $input = $request->all();
         $input['parent_id'] = empty($input['parent_id']) ? 0 : $input['parent_id'];

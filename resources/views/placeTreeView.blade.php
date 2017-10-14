@@ -1,16 +1,19 @@
-<!DOCTYPE html>
+@extends('layouts.pageTemplate')
+
+@section('content')
+{{--<!DOCTYPE html>
 <html>
 <head>
-    <title>Laravel Category Treeview Example</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link href="{{ asset('/css/treeview.css') }}" rel="stylesheet">
-</head>
+    <title>Laravel Category Treeview Example</title>--}}
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />--}}
+   {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">--}}
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>--}}
+    {{--<link href="{{ asset('/css/treeview.css') }}" rel="stylesheet">--}}
+{{--</head>--}}
 <body>
-<div class="container">
+<div class="col-md-12">
     <div class="panel panel-primary">
-        <div class="panel-heading">Manage Place TreeView</div>
+        <div class="panel-heading">Tree View Places </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-6">
@@ -38,15 +41,21 @@
                         </div>
                     @endif
 
-                    <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                    <div class="form-group {{ $errors->has('type_place') ? 'has-error' : '' }}">
+                        {!! Form::label('Type:') !!}
+                        {!! Form::text('type_place', old('type_place'), ['class'=>'form-control', 'placeholder'=>'Enter Type', 'style'=>'height:50px']) !!}
+                        <span class="text-danger">{{ $errors->first('type') }}</span>
+                    </div>
+
+                    <div class="form-group {{ $errors->has('name_place') ? 'has-error' : '' }}">
                         {!! Form::label('Name:') !!}
-                        {!! Form::text('name', old('name'), ['class'=>'form-control', 'placeholder'=>'Enter Name']) !!}
+                        {!! Form::text('name_place', old('name_place'), ['class'=>'form-control', 'placeholder'=>'Enter Name', 'style'=>'height:50px']) !!}
                         <span class="text-danger">{{ $errors->first('name') }}</span>
                     </div>
 
                     <div class="form-group {{ $errors->has('parent_id') ? 'has-error' : '' }}">
                         {!! Form::label('Place:') !!}
-                        {!! Form::select('parent_id', $allPlaces, old('parent_id'), ['class'=>'form-control', 'placeholder'=>'Select Place']) !!}
+                        {!! Form::select('parent_id', $allPlaces, old('parent_id'), ['class'=>'form-control', 'placeholder'=>'Select Place', 'style'=>'height:50px']) !!}
                         <span class="text-danger">{{ $errors->first('parent_id') }}</span>
                     </div>
 
@@ -62,5 +71,6 @@
     </div>
 </div>
 <script src="{{  asset('/js/treeview.js') }}"></script>
-</body>
-</html>
+{{--</body>
+</html>--}}
+@endsection

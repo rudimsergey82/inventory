@@ -1,7 +1,17 @@
 @extends('layouts.pageTemplate')
 
 @section('content')
-    <div class="container">
+    <div>
+        <div class="row">
+            <div class="col-lg-12{{-- margin-tb--}}">
+                <div class="pull-left">
+                    <h2>All items</h2>
+                </div>
+                <div class="pull-right">
+                    <a class="btn btn-success" href="{{url('addItem')}}"> Create New Item</a>
+                </div>
+            </div>
+        </div>
         <div class="body_item_form">
             <style>
                 table {
@@ -9,13 +19,15 @@
                     width: 100%; /* Ширина таблицы */
                     border-spacing: 0; /* Расстояние между ячеек */
                 }
+
                 td, th {
                     border: 1px solid #333; /* Параметры границ */
                     padding: 1px; /* Поля в ячейках */
                     text-align: center; /* Выравнивание по центру */
                 }
             </style>
-            <h2>All items</h2>
+
+
             <table class="table-all-items" border="1">
                 <tr class="header-table-all-items">
                     <th class="header-table">Action</th>
@@ -33,7 +45,8 @@
                 </tr>
                 @foreach($items as $item)
                     <tr>
-                        <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->item_id}}" role="button">V</a>
+                        <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->item_id}}"
+                               role="button">V</a>
                         </td>
                         <td>{{ ++$i }}</td>
                         <td>{{ $item->name_item or 'No item'}}</td>
@@ -51,22 +64,23 @@
             </table>
         </div>
 
-        <div class="visible-print text-center">
+        {{--<div class="visible-print text-center">
             {!! QrCode::size(100)->generate(Request::url()) !!}
             <p>Сканируйте меня, чтобы вернуться на исходную страницу.</p>
-        </div>
+        </div>--}}
 
-        <div>
+        {{--<div>
             <p><a class="btn btn-lg btn-success" href="{{url('addItem')}}" role="button">Add item</a></p>
-        </div>
+        </div>--}}
+        <br>
         <div>
             <p><a href="{{URL::to('printPreview')}}" class="btn btn-lg btn-primary">Print all items</a></p>
             <script type="text/javascript">
-                $(document).ready(function(){
+                $(document).ready(function () {
                     $('.btn-primary').printPage();
                 });
             </script>
         </div>
-    @include('common.importExport')
+        @include('common.importExport')
     </div>
 @endsection

@@ -17,6 +17,7 @@ class AuditController extends Controller
         if (view()->exists('audits')) {
             $auditPlaces =$this->getAuditPlaces();
             $items = $this->getAuditItems();
+            /*dump($items);*/
             return view('audits', compact('items', 'auditPlaces'))->with('i');
         }
         abort(404);
@@ -24,8 +25,8 @@ class AuditController extends Controller
 
     protected function getAuditPlaces()
     {
-        return DB::table('places')
-            ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
+        return DB::table('audits')
+            ->rightjoin('places', 'audits.place_id', '=', 'places.id')
             ->get();
     }
 
@@ -41,7 +42,7 @@ class AuditController extends Controller
     protected function getAudits()
     {
         $audits = Audit::all();
-        dump($audits);
+        /*dump($audits);*/
         /*$auditPlaces = DB::table('places')
                 ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
                 /*->groupby('places.parent_id')*/

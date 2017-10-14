@@ -14,6 +14,7 @@
     <link href={{url('css/ui/jquery-ui.min.css')}} rel="stylesheet">
     <link href={{url('css/bootstrap.min.css')}} rel="stylesheet">
     {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+    <link href="{{ asset('/css/treeview.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{{asset("css/justified-nav.css")}}" rel="stylesheet">
@@ -27,6 +28,7 @@
     <script src="{{ asset('js/printPage.js') }}"></script>
 
     <script src="{{ asset('js/audit.js') }}"></script>
+
 {{--    <script>
         $( function() {
             $( "#tabs" ).tabs();

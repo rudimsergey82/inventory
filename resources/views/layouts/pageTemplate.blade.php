@@ -14,6 +14,7 @@
     <link href={{url('css/ui/jquery-ui.min.css')}} rel="stylesheet">
     <link href={{url('css/bootstrap.min.css')}} rel="stylesheet">
     {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+    <link href="{{ asset('/css/treeview.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{{asset("css/justified-nav.css")}}" rel="stylesheet">
@@ -26,6 +27,7 @@
     {{--Include Print Preview Script from Rudim S--}}
     <script src="{{ asset('js/printPage.js') }}"></script>
     <script src="{{ asset('js/audit.js') }}"></script>
+
 {{--    <script>
         $( function() {
             $( "#tabs" ).tabs();
@@ -55,13 +57,19 @@
                             <a class="nav-link" href="{{url('audit')}}">Audits</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('items')}}">Items</a>
+                            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Items</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                <a class="dropdown-item" href="{{url('items')}}">Manager items</a>
+                                <a class="dropdown-item" href="{{url('failItems')}}">Fail items</a>
+                                <a class="dropdown-item" href="{{url('addItem')}}">Add new item</a>
+                            </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Places</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown01">
-                                <a class="dropdown-item" href="{{url('place')}}">Tree places</a>
+                                <a class="dropdown-item" href="{{url('place-tree-view')}}">Tree places</a>
                                 <a class="dropdown-item" href="{{url('places')}}">Manager places</a>
                                 <a class="dropdown-item" href="{{url('places/create')}}">Create new place</a>
                             </div>
@@ -70,16 +78,15 @@
                             <a class="nav-link" href="{{url('about')}}">About</a>
                         </li>
 
-                        <li class="nav-item dropdown">
+                        {{--<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown01">
-                                <a class="dropdown-item" href="{{url('addItem')}}">Add item</a>
                                 <a class="dropdown-item" href="{{url('addPlace')}}">Add place</a>
                                 <a class="dropdown-item" href="#">Another action</a>
                                 <a class="dropdown-item" href="#">Something else here</a>
                             </div>
-                        </li>
+                        </li>--}}
 
 
                         <!-- Right Side Of Navbar -->

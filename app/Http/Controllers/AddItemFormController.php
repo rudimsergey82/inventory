@@ -14,17 +14,29 @@ class AddItemFormController extends Controller
     protected $item;
     public function index()
     {
-        dump($_POST);
+        /*dump($_POST);*/
         return view('addItemForm');
     }
 
-    public function addItem()
+    public function addItem(Request $request)
     {
+        dump($_POST);
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'identification' => 'required|integer|max:255|unique',
+            'serial' => 'required|string|max:255',
+            'specifications' => 'string|max:255',
+            'dt_create' => 'date',
+            'dt_buy' => 'date',
+            'coast' => 'decimal|max:100',
+            'dt_input_use' => 'date',
+            'guarantee' => 'string|max:255',
+        ]);
         Item::create(
             [
-                'name' => $_POST['name'],
+                'name_item' => $_POST['name'],
                 'identification_number' => $_POST['identification'],
-                'serial_number' => $_POST['serial'],
+                'serial_number' => $_POST['serial_number'],
                 'specifications' => $_POST['specifications'],
                 'date_create' => $_POST['dt_create'],
                 'date_buy' => $_POST['dt_buy'],
@@ -66,7 +78,7 @@ class AddItemFormController extends Controller
                         'guarantee' => $_POST['guarantee']
                     ]
                 );*/
-        return view('addItemForm');
+        return view('addItemForm')/*->with('meseger')*/;
     }
 
     /*    public function store(Request $request)

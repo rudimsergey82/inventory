@@ -42,41 +42,60 @@
                     <th class="header-table">Place</th>
                 </tr>
                 @foreach($item as $value)
-                    <tr>
-                        {{--<td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->item_id}}" role="button">V</a></td>--}}
-                        {{--<td>{{ ++$i }}</td>--}}
-                        <td>{{ $value->name_item }}</td>
-                        <td>{{ $value->identification_number }}</td>
-                        <td>{{ $value->serial_number }}</td>
-                        <td>{{ $value->specifications }}</td>
-                        <td>{{ $value->date_create }}</td>
-                        <td>{{ $value->date_buy }}</td>
-                        <td>{{ $value->coast }}</td>
-                        <td>{{ $value->date_input_use }}</td>
-                        <td>{{ $value->guarantee }}</td>
-                        {{--@if(filled( {{ $value->name_place }} ))--}}
-                        <td>{{ $value->type_place }} {{ $value->name_place or 'No place'}}</td>
+                    <td>{{ $value->name_item }}</td>
+                    <td>{{ $value->identification_number }}</td>
+                    <td>{{ $value->serial_number }}</td>
+                    <td>{{ $value->specifications }}</td>
+                    <td>{{ $value->date_create }}</td>
+                    <td>{{ $value->date_buy }}</td>
+                    <td>{{ $value->coast }}</td>
+                    <td>{{ $value->date_input_use }}</td>
+                    <td>{{ $value->guarantee }}</td>
+                    <td>{{ $value->type_place }} {{ $value->name_place or 'No place'}}</td>
                     </tr>
                 @endforeach
             </table>
         </div>
-        <div>
-            {!! $QR !!}
-            {{--{!! QrCode::size(100)->generate(Request::url()); !!}--}}
-            <p>Scan me for inventory</p>
-        </div>
+        <div class="row">
+            <div class="col-lg-6 margin-tb">
+                <div class="pull-left">
+                    <div>
+                        {!! $QR !!}
+                        {{--{!! QrCode::size(100)->generate(Request::url()); !!}--}}
+                        <p>Scan me for inventory</p>
+                    </div>
 
-        <div>
-            <p><a href="{{URL::to('itemPrint', $num->item_id)}}" class="btn btn-lg btn-primary">Print item</a></p>
-            <script type="text/javascript">
-                $(document).ready(function(){
-                    $('.btn-primary').printPage();
-                });
-            </script>
+                    <div>
+                        <p><a href="{{URL::to('itemPrint', $num->item_id)}}" class="btn btn-lg btn-primary">Print
+                                item</a></p>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $('.btn-primary').printPage();
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 margin-tb">
+                <div class="pull-left">
+                    {{--<div class="pull-right">--}}
+                    <h2> Add new place </h2>
+                </div>
+                <div class="form-group">
+                    {!! Form::open(array('url' => 'item/addPlace','method'=>'POST')) !!}
+                    <select id="select-places" name="places" class="form-control" style="height:50px">
+                        <option>--Select place--</option>
+                        @foreach ($places as $place)
+                            <option value="{{ $place->id }}">{{ $place->type_place }} {{$place->name_place}}</option>
+                        @endforeach
+                    </select>
+                    <input type="hidden" name="item_id" value="{{ $id }}">
+                    <button type="submit" class="btn-lg btn-success">Submit</button>
+                    {!! Form::close() !!}
+                </div>
+            </div>
         </div>
-        {{--</div>--}}
         <br>
-
         <div class="row">
             <div class="col-lg-6 margin-tb">
                 <div class="pull-left">
@@ -87,7 +106,7 @@
                             <th class="header-table">Number</th>
                             <th class="header-table">Status</th>
                             <th class="header-table">Date audit</th>
-                            <th class="header-table">Action</th>
+                            {{--<th class="header-table">Action</th>--}}
                         </tr>
                         @foreach($audit as $value)
                             <tr>
@@ -101,51 +120,20 @@
                     </table>
                 </div>
             </div>
-            <div class="col-lg-6 margin-tb">
-                <div class="pull-left">
-                    {{--<div class="pull-right">--}}
-                    <h2> Add new place </h2>
-                </div>
-                <div class="form-group">
-                    {!! Form::open(array('url' => 'item/addPlace','method'=>'POST')) !!}
-                    {{--<strong>Name place:</strong>--}}
-                    {{--{!! Form::text('name_place', null, array('placeholder' => 'Name','class' => 'form-control','style'=>'height:50px')) !!}--}}
-                    <select id="select-places" name="places" class="form-control" style="height:50px">
-                        <option>--Select place-- </option>
-                        @foreach ($places as $place)
-                            <option value="{{ $place->id }}">{{ $place->type_place }} {{$place->name_place}}</option>
-                        @endforeach
-                    </select>
-                    <input type="hidden" name="item_id" value="{{ $id }}">
-                    <button type="submit" class="btn-lg btn-success">Submit</button>
-                    {!! Form::close() !!}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 margin-tb">
-                {{--<div class="pull-right"></div>--}}
-            </div>
+
             <div class="col-lg-6 margin-tb">
                 <div class="pull-left">
                     <h2> Add audit</h2>
                 </div>
                 {!! Form::open(array('url' => 'item/addAudit','method'=>'POST')) !!}
-                {{--<form class="form-horizontal" method="post">--}}
-                    <select id="select-status" name="auditItem" class="form-control"
-                            style="height:50px">
-                        <option>--Select status--</option>
-                        <option name="ok"> Ok</option>
-                        <option name="fail"> Fail</option>
-                        <option name="new">New</option>
-                        {{--@foreach ($places as $place)
-                            <option value="{{ $place->id }}">{{ $place->type_place }} {{$place->name_place}}</option>
-                        @endforeach--}}
-                    </select>
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    {{--<input type="submit" class="form-item" value="Add Audit">--}}
-                    <button type="submit" class="btn-lg btn-success">Submit</button>
-                {{--</form>--}}
+                <select id="select-status" name="auditItem" class="form-control"
+                        style="height:50px">
+                    <option>--Select status--</option>
+                    <option name="ok"> Ok</option>
+                    <option name="fail"> Fail</option>
+                    <option name="new">New</option>
+                </select>
+                <button type="submit" class="btn-lg btn-success">Submit</button>
                 {!! Form::close() !!}
 
             </div>

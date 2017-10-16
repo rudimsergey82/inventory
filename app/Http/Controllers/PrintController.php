@@ -21,7 +21,7 @@ class PrintController extends Controller
                 echo '<tr>';
             echo '<td>'.$item->name_item.'<br>'.
                     $item->identification_number . '<br>'
-                    .QrCode::size(100)->generate(url('item/'.($item->item_id))). '</td>';
+                    .QrCode::size(100)->generate(url('item/' . ($item->item_id))). '</td>';
             if (($key % $COLS) == ($COLS - 1) || $key == (sizeof($items) - 1))
                 echo str_repeat('<td>&nbsp;</td>', $COLS - ($key % $COLS) - 1) . '</tr>';
         }

@@ -18,9 +18,9 @@
                            name="identification">
                 </div>
                 <div class="form-group">
-                    <label for="specifications">Serial number:</label>
-                    <input type="text" class="form-control" id="specifications" placeholder="Enter serial number"
-                           name="specifications">
+                    <label for="serial_number">Serial number:</label>
+                    <input type="text" class="form-control" id="serial_number" placeholder="Enter serial number"
+                           name="serial_number">
                 </div>
                 <div class="form-group">
                     <label for="specifications">Specifications:</label>

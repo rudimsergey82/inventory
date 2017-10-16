@@ -20,14 +20,6 @@ class PlaceNewController extends Controller
     {
         //
         $places = Place::all()/*latest()->paginate(5)*/;
-        /*dump($places);*/
-        /*$places = Place::all();*/
-        /*$tree = $this->buildTree($places);
-        dump($tree);
-        ob_start();
-        $this->buildTreePlaceNew($tree);
-        $treePlaces = ob_get_contents();
-        ob_end_clean();*/
         return view('places.index', compact('places'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
 
@@ -41,102 +33,156 @@ class PlaceNewController extends Controller
     public function create()
     {
         //
-        return view('places.create');
+        $allPlaces = Place::pluck('name_place', 'id')->all();
+        return view('places.create', compact('allPlaces'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         //
-        /*request()->validate([
-            'type_place' => 'required',
-            'name' => 'required',
-        ]);*/
         $this->validate($request, [
             'type_place' => 'required',
-            'name' => 'required',
+            'name_place' => 'required',
         ]);
         Place::create($request->all());
         return redirect()->route('places.index')
-            ->with('success','Place created successfully');
+            ->with('success', 'Place created successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //
         $place = Place::find($id);
+        /*dump($place);*/
+        $childs = Place::all()->where('parent_id', /*'=', */$id);
+        /*dump($childs);*/
         $parent = Place::find($place->parent_id);
-        $childs = Place::all()->where('parent_id', '=', $id)/*->get()*/;
-        $items = DB::table('places')
+        /*dump($parent);
+        dump($id);*/
+        /*$items1 = DB::table('places')
             ->where('places.id', '=', $id)
             ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
             ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
             ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
             ->get();
-        /*dump($place);
-        dump($parent);
+        dump($items1);*/
+        $items = DB::table('places')
+            ->where('places.path', 'like', $place->path.'%' )
+            ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
+            ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
+            ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
+            ->get();
+       /* dump($items);*/
+
+        /*if (isset($childs)) {
+            $arr = [];
+            foreach ($childs as $value) {
+                $arr[] = $value->id;
+            }
+        }*/
+
+        /*$childItems = DB::table('places')
+            ->whereIn('places.id', $arr )
+            ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
+            ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
+            ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
+            ->get();*/
+
+        /*dump($tree);*/
+         /*dump($parent);*/
+
+         /*dump($items);
+         dump($childItems);*/
+        return view('places.show', compact('place', 'parent', 'childs', 'items'))->with('i');
+    }
+
+    protected function getChilds($id)
+    {
+        dump($id);
+        $arr = [];
+        $childs = Place::all()->where('parent_id', $id);
         dump($childs);
-        dump($items);*/
-        return view('places.show',compact('place', 'parent', 'childs', 'items'))->with('i');
+        if (empty($childs)) {
+            dump($arr);
+            return $arr;
+        }
+       /* else/*if (isset($childs)) {*/
+        foreach ($childs as $value) {
+            $arr[] = $value->id;
+
+        }
+        dump($arr);
+            dump(collect($arr));
+        $childs = DB::table('places')
+            ->whereIn('places.id', $arr /*array(1, 2, 3)*/)->get();
+            dump($childs);
+        self::getChilds($arr);
+
+        /* }*/
+
+    }
+
+    protected function checkChilds($chis, $arr = [])
+    {
+        if (empty($arr->key)) {
+            return $arr;
+        } else {
+            foreach ($chis as $child) {
+                $arr[] = $child->id;
+                self::checkChilds($chis, $arr);
+            }
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
         $place = Place::find($id);
-        $parent = $place->parent()->first();
-        $name_parent = $parent->name_place;
-        dump($place);
-        dump($parent);
-        dump($parent->name_place);
-
-        return view('places.edit', compact('place', 'name_parent'));
+        $allPlaces = Place::pluck('name_place', 'id')->all();
+        return view('places.edit', compact('place', 'allPlaces', 'name_parent'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
-        /*request()->validate([
-            'type' => 'required',
-            'name' => 'required',
-        ]);*/
         $this->validate($request, [
             'type_place' => 'required',
             'name' => 'required',
         ]);
         Place::find($id)->update($request->all());
         return redirect()->route('places.index')
-            ->with('success','Place updated successfully');
+            ->with('success', 'Place updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -144,6 +190,6 @@ class PlaceNewController extends Controller
         //
         Place::find($id)->delete();
         return redirect()->route('places.index')
-            ->with('success','Place deleted successfully');
+            ->with('success', 'Place deleted successfully');
     }
 }

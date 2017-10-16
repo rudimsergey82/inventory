@@ -33,6 +33,18 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'identification' => 'required|integer|max:255|unique',
+            'serial' => 'required|string|max:255',
+            'specifications' => 'string|max:255',
+            'dt_create' => 'date',
+            'dt_buy' => 'date',
+            'coast' => 'decimal|max:100',
+            'dt_input_use' => 'date',
+            'guarantee' => 'string|max:255',
+        ]);
+
         $item = new Item;
         $item->name_item = $request->name;
         $item->identification_number = $request->identification;
@@ -79,12 +91,10 @@ class ItemController extends Controller
     public function showItem($id)
     {
         if (view()->exists('showItem')) {
-            /*$item = Item::find($id);
-            */
+            /*$item = Item::find($id);*/
             $item = $this->getItem($id);
-            /**/
             $num = Item::find($id);
-            dump($num);
+            /*dump($num);*/
             $audit = $num->auditItems;
             /*dump($audit);*/
             $places = Place::all();
@@ -118,18 +128,27 @@ class ItemController extends Controller
         return $item;
     }
 
-    /**
-     * @param mixed $items
-     */
-    /*    public static function setItems($array)
+        protected function failItems()
         {
-             self::$items = $array;
-             foreach (self::$items as $item){
-                 $this->store($item);
-             }
+            if (view()->exists('items')) {
+                /*$aud = AuditItem::find(1);
+                dump($aud);
+                $ite = $aud->item;
+                dump($ite);
+                $it = Item::find(1);
+                dump($it);
+                $au = $it->auditItems;
+                dump($au);*/
+                $items = Item::all()->where('item_status', 'fail')->get();
 
-             return ;
-        }*/
+                $failItems = DB::able('items')
+                    ->leftjoin('audit_items', 'items.item_id', '=', 'audit_items.item_id')
+                    ->where('item_status', 'fail')
+                    ->get();
+                return view('failItems', compact('items'))->with('i');
+            }
+            abort(404);
+        }
 
     protected function addPlace($id, Request $request)
     {

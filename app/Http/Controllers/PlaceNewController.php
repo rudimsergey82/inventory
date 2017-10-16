@@ -154,10 +154,13 @@ class PlaceNewController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(\Auth::user()->hasRole('admin'))
+        {
         $place = Place::find($id);
         $allPlaces = Place::pluck('name_place', 'id')->all();
         return view('places.edit', compact('place', 'allPlaces', 'name_parent'));
+        }
+        return redirect('/')->with('error', 'Not enough rights for operations');
     }
 
     /**
@@ -187,9 +190,17 @@ class PlaceNewController extends Controller
      */
     public function destroy($id)
     {
-        //
-        Place::find($id)->delete();
-        return redirect()->route('places.index')
-            ->with('success', 'Place deleted successfully');
+        if(\Auth::user()->hasRole('admin'))
+        {
+            Place::find($id)->delete();
+            return redirect()->route('places.index')
+                ->with('success', 'Place deleted successfully');
+        }
+        return redirect('/')->with('error', 'Not enough rights for operations');
     }
+
+    /*public function __construct()
+    {
+        $this->middleware('role:admin');
+    }*/
 }

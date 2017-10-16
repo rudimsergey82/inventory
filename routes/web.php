@@ -19,28 +19,29 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('about', 'AboutController@index');
 
-Route::get('audit', 'AuditController@index');
+Route::get('audit', 'AuditController@index')->middleware('auth');
 
-Route::get('/items', 'ItemController@index');
+Route::get('/items', 'ItemController@index')->middleware('auth');
 
-Route::get('/item/{id}', 'ItemController@showItem');
+Route::get('/item/{id}','ItemController@showItem')->middleware('auth');
+
 Route::post('/item/addPlace', 'ItemController@addPlace');
 
 Route::post('/item/addAudit', 'AuditController@addAudit');
 Route::post('/place/addAudit', 'AuditController@addAudit');
 
-Route::get('/addItem', 'AddItemFormController@index');
+Route::get('/addItem', 'AddItemFormController@index')->middleware('auth');
 
-Route::post('/addItem', 'AddItemFormController@addItem');
+Route::post('/addItem', 'AddItemFormController@addItem')->middleware('auth');
 
-Route::get('place', 'PlaceController@index')->name('place.index');
+Route::get('place', 'PlaceController@index')->name('place.index')->middleware('auth');
 
 Route::get('/addPlace', 'AddPlaceFormController@index');
 
 Route::post('/addPlace', 'AddPlaceFormController@addPlace');
 //Route::post('/addPlace', 'AddPlaceFormController@store');
 
-Route::get('place-tree-view',['uses'=>'PlaceController@managePlace']);
+Route::get('place-tree-view',['uses'=>'PlaceController@managePlace'])->middleware('auth');
 Route::post('add-place',['as'=>'add.place','uses'=>'PlaceController@addPlace']);
 
 Route::resource('places','PlaceNewController');
@@ -65,3 +66,7 @@ Route::get('downloadExcel/{type}', 'CsvController@downloadExcel');
 Route::post('importExcel', 'CsvController@importExcel');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

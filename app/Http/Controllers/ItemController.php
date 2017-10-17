@@ -143,14 +143,6 @@ class ItemController extends Controller
     protected function failItems()
     {
         if (view()->exists('items')) {
-            /*$aud = AuditItem::find(1);
-            dump($aud);
-            $ite = $aud->item;
-            dump($ite);
-            $it = Item::find(1);
-            dump($it);
-            $au = $it->auditItems;
-            dump($au);*/
             $items = AuditItem::where('item_status', '=', 'fail')->get();
             dump($items);
             $failItems = DB::table('items')
@@ -213,5 +205,9 @@ class ItemController extends Controller
         return $this->showItem($request->item_id);
     }
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }
 

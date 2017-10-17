@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Jumbotron -->
-    @if ($message = Session::get('error_role'))
+    @if ($message = Session::get('error_roles'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>

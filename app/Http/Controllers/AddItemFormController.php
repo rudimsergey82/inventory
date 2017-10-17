@@ -12,15 +12,15 @@ use Illuminate\Support\Facades\DB;
 class AddItemFormController extends Controller
 {
     protected $item;
+
     public function index()
     {
-        /*dump($_POST);*/
         return view('addItemForm');
     }
 
     public function addItem(Request $request)
     {
-        dump($_POST);
+        //dump($_POST);
         $this->validate($request, [
             'name' => 'required|string|max:100',
             'identification' => 'required|integer|unique:items|max:100',/**/
@@ -45,7 +45,14 @@ class AddItemFormController extends Controller
                 'guarantee' => $request['guarantee']
             ]
         );
+
         return view('addItemForm')->with('success', 'New Place added successfully.');
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+
     }
 
 }

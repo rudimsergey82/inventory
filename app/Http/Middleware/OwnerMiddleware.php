@@ -14,10 +14,11 @@ class OwnerMiddleware
      * @param  string $role
      * @return mixed
      */
+
     public function handle($request, Closure $next, $role)
     {
         if (!$request->user()->hasRole($role)) {
-            return redirect('/')->with('error_role', 'Не достаточно прав! Для операции');
+            return redirect('/')->with('error_roles', 'You have not enough rights for operations');
         }
         return $next($request);
     }

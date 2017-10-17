@@ -19,7 +19,8 @@ class PlaceNewController extends Controller
     public function index()
     {
         //
-        $places = Place::all()/*latest()->paginate(5)*/;
+        $places = Place::all()/*latest()->paginate(5)*/
+        ;
         return view('places.index', compact('places'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
 
@@ -32,9 +33,11 @@ class PlaceNewController extends Controller
      */
     public function create()
     {
-        //
-        $allPlaces = Place::pluck('name_place', 'id')->all();
-        return view('places.create', compact('allPlaces'));
+        if (\Auth::user()->hasRole('admin')) {
+            $allPlaces = Place::pluck('name_place', 'id')->all();
+            return view('places.create', compact('allPlaces'));
+        }
+        return redirect('/')->with('error_roles', 'You have not enough rights for operations');
     }
 
     /**
@@ -71,19 +74,16 @@ class PlaceNewController extends Controller
     {
         //
         $place = Place::find($id);
-        /*dump($place);*/
         $childs = Place::all()->where('parent_id', /*'=', */$id);
-  /*      dump($childs);*/
         $parent = Place::find($place->parent_id);
        /* dump($parent);
         dump($id);*/
         $items = DB::table('places')
-            ->where('places.path', 'like', $place->path.'%' )
+            ->where('places.path', 'like', $place->path . '%')
             ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
             ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
             ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
             ->get();
-       /* dump($items);*/
         return view('places.show', compact('place', 'parent', 'childs', 'items'))->with('i');
     }
 
@@ -95,13 +95,12 @@ class PlaceNewController extends Controller
      */
     public function edit($id)
     {
-        if(\Auth::user()->hasRole('admin'))
-        {
-        $place = Place::find($id);
-        $allPlaces = Place::pluck('name_place', 'id')->all();
-        return view('places.edit', compact('place', 'allPlaces', 'name_parent'));
+        if (\Auth::user()->hasRole('admin')) {
+            $place = Place::find($id);
+            $allPlaces = Place::pluck('name_place', 'id')->all();
+            return view('places.edit', compact('place', 'allPlaces', 'name_parent'));
         }
-        return redirect('/')->with('error_role', 'Not enough rights for operations');
+        return redirect('/')->with('error_roles', 'You have not enough rights for operations');
     }
 
     /**
@@ -131,15 +130,19 @@ class PlaceNewController extends Controller
      */
     public function destroy($id)
     {
-        if(\Auth::user()->hasRole('admin'))
-        {
+        if (\Auth::user()->hasRole('admin')) {
             Place::find($id)->delete();
             return redirect()->route('places.index')
                 ->with('success', 'Place deleted successfully');
         }
-        return redirect('/')->with('error_role', 'Not enough rights for operations');
+        return redirect('/')->with('error_roles', 'You have not enough rights for operations');
     }
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
     /*public function __construct()
     {
         $this->middleware('role:admin');

@@ -23,7 +23,7 @@ class AddItemFormController extends Controller
         dump($_POST);
         $this->validate($request, [
             'name' => 'required|string|max:100',
-            'identification' => 'required|integer',/*|max:20|unique*/
+            'identification' => 'required|integer|unique:items|max:100',/**/
             'serial' => 'required|string|max:100',
             'specifications' => 'string',
             'dt_create' => 'date',

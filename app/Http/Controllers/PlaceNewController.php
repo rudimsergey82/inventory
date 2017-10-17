@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Auth\Middleware;
 
 class PlaceNewController extends Controller
 {
@@ -48,10 +48,15 @@ class PlaceNewController extends Controller
         //
         $this->validate($request, [
             'type_place' => 'required',
-            'name_place' => 'required',
+            'name_place' => 'required|unique:places|max:190',
         ]);
+        $path = Place::find($request->parent_id)->path;
+
         $place = Place::create($request->all());
         $id = $place->id;
+        $newPath = $path . '/' . $place->name_place;
+        dump($newPath);
+        //Place::find($id)->input($newPath);
         return redirect()->route('places.index')
             ->with('success', 'Place created successfully');
     }
@@ -68,9 +73,9 @@ class PlaceNewController extends Controller
         $place = Place::find($id);
         /*dump($place);*/
         $childs = Place::all()->where('parent_id', /*'=', */$id);
-        /*dump($childs);*/
+  /*      dump($childs);*/
         $parent = Place::find($place->parent_id);
-        /*dump($parent);
+       /* dump($parent);
         dump($id);*/
         $items = DB::table('places')
             ->where('places.path', 'like', $place->path.'%' )
@@ -78,7 +83,7 @@ class PlaceNewController extends Controller
             ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
             ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
             ->get();
-        dump($items);
+       /* dump($items);*/
         return view('places.show', compact('place', 'parent', 'childs', 'items'))->with('i');
     }
 
@@ -90,10 +95,13 @@ class PlaceNewController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(\Auth::user()->hasRole('admin'))
+        {
         $place = Place::find($id);
         $allPlaces = Place::pluck('name_place', 'id')->all();
         return view('places.edit', compact('place', 'allPlaces', 'name_parent'));
+        }
+        return redirect('/')->with('error_role', 'Not enough rights for operations');
     }
 
     /**
@@ -123,9 +131,17 @@ class PlaceNewController extends Controller
      */
     public function destroy($id)
     {
-        //
-        Place::find($id)->delete();
-        return redirect()->route('places.index')
-            ->with('success', 'Place deleted successfully');
+        if(\Auth::user()->hasRole('admin'))
+        {
+            Place::find($id)->delete();
+            return redirect()->route('places.index')
+                ->with('success', 'Place deleted successfully');
+        }
+        return redirect('/')->with('error_role', 'Not enough rights for operations');
     }
+
+    /*public function __construct()
+    {
+        $this->middleware('role:admin');
+    }*/
 }

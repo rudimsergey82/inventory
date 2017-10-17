@@ -39,7 +39,7 @@
                     <th class="header-table">Guarantee</th>
                     <th class="header-table">Place</th>
                 </tr>
-                {{--@foreach($item as $value)
+                @foreach($item as $value)
                     <td>{{ $value->name_item }}</td>
                     <td>{{ $value->identification_number }}</td>
                     <td>{{ $value->serial_number }}</td>
@@ -51,8 +51,8 @@
                     <td>{{ $value->guarantee }}</td>
                     <td>{{ $value->type_place }} {{ $value->name_place or 'No place'}}</td>
                     </tr>
-                @endforeach--}}
-                    <td>{{ $item->name_item }}</td>
+                @endforeach
+                   {{-- <td>{{ $item->name_item }}</td>
                     <td>{{ $item->identification_number }}</td>
                     <td>{{ $item->serial_number }}</td>
                     <td>{{ $item->specifications }}</td>
@@ -62,7 +62,7 @@
                     <td>{{ $item->date_input_use }}</td>
                     <td>{{ $item->guarantee }}</td>
                     <td>{{ $item->type_place }} {{ $item->name_place or 'No place'}}</td>
-                    </tr>
+                    </tr>--}}
                 </table>
         </div>
         <div class="row">

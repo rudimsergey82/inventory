@@ -2,6 +2,11 @@
 
 @section('content')
     <!-- Jumbotron -->
+    @if ($message = Session::get('error_role'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
     <div class="jumbotron">
         <h1>Project Inventory</h1>
         <p class="lead">This project will help to realize the inventory process and accounting of material resources for

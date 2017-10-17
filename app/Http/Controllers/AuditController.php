@@ -15,7 +15,7 @@ class AuditController extends Controller
     public function index()
     {
         if (view()->exists('audits')) {
-            $auditPlaces =$this->getAuditPlaces();
+            $auditPlaces = $this->getAuditPlaces();
             $items = $this->getAuditItems();
             /*dump($items);*/
             return view('audits', compact('items', 'auditPlaces'))->with('i');
@@ -70,4 +70,9 @@ class AuditController extends Controller
         return $audits;
     }
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
 }

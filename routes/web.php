@@ -25,7 +25,7 @@ Route::get('/items', 'ItemController@index')->middleware('role:manager');
 
 /*->middleware('auth')*/
 
-Route::get('/item/{id}','ItemController@showItem')->middleware('role:manager');
+Route::get('/item/{id}', 'ItemController@showItem')->middleware('role:manager');
 
 Route::post('/item/addPlace', 'ItemController@addPlace')->middleware('role:admin');
 Route::get('failItems', 'ItemController@failItems')->middleware('role:manager');
@@ -35,8 +35,9 @@ Route::post('/place/addAudit', 'AuditController@addAudit')->middleware('role:man
 
 Route::get('/addItem', 'AddItemFormController@index')->middleware('role:admin');
 /*Route::get('/home', ['as' => 'home', 'middleware' => 'role:admin', 'uses' => 'HomeController@index']);*/
-
-Route::post('/addItem', 'AddItemFormController@addItem')->middleware('auth')->middleware('role:manager');
+/*->middleware('auth')*/
+/*->middleware('role:manager')*/
+Route::post('/addItem', 'AddItemFormController@addItem')->middleware('role:admin');
 
 Route::get('place', 'PlaceController@index')->name('place.index')->middleware('role:admin');
 
@@ -45,29 +46,28 @@ Route::get('/addPlace', 'AddPlaceFormController@index')->middleware('role:admin'
 Route::post('/addPlace', 'AddPlaceFormController@addPlace');
 //Route::post('/addPlace', 'AddPlaceFormController@store');
 
-Route::get('place-tree-view',['uses'=>'PlaceController@managePlace'])->middleware('role:manager');
-Route::post('add-place',['as'=>'add.place','uses'=>'PlaceController@addPlace']);
+Route::get('place-tree-view', ['uses' => 'PlaceController@managePlace'])->middleware('role:manager');
+Route::post('add-place', ['as' => 'add.place', 'uses' => 'PlaceController@addPlace']);
 
-Route::resource('places','PlaceNewController');
-Route::resource('auditItems','AuditItemController');
+Route::resource('places', 'PlaceNewController');
+Route::resource('auditItems', 'AuditItemController');
 
 //Route::get('treePlaces', 'PlaceController@showTreePlace');
 
 /*Route::get('place', 'PlaceController@index');*/
 
 
-Route::get('/printPreview','PrintController@printPreview');
+Route::get('/printPreview', 'PrintController@printPreview');
 
-Route::get('/itemPrint/{id}','PrintController@printPreviewItem');
+Route::get('/itemPrint/{id}', 'PrintController@printPreviewItem');
 
-Route::get('/QR/{id}','QRCodeController@getQRCodeItem');
+Route::get('/QR/{id}', 'QRCodeController@getQRCodeItem');
 
 Route::get('importExport', 'CsvController@importExport')->middleware('role:manager');
 
 Route::get('downloadExcel/{type}', 'CsvController@downloadExcel')->middleware('role:manager');
 
 Route::post('importExcel', 'CsvController@importExcel')->middleware('role:admin');
-
 
 
 Auth::routes();

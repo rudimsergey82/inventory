@@ -101,7 +101,7 @@ class ItemController extends Controller
             /*dump($places);*/
             $QRCodeController = new QRCodeController;
             $QR = $QRCodeController->getQRCodeItem($id);
-            return view('showItem', compact('id','item','audit','places','num', 'QR'))->with('i');
+            return view('showItem', compact('id', 'item', 'audit', 'places', 'num', 'QR'))->with('i');
         }
         abort(404);
     }
@@ -128,30 +128,36 @@ class ItemController extends Controller
         return $item;
     }
 
-        protected function failItems()
-        {
-            if (view()->exists('items')) {
-                /*$aud = AuditItem::find(1);
-                dump($aud);
-                $ite = $aud->item;
-                dump($ite);
-                $it = Item::find(1);
-                dump($it);
-                $au = $it->auditItems;
-                dump($au);*/
-                $items = Item::all()->where('item_status', 'fail')->get();
+    protected function failItems()
+    {
+        if (view()->exists('items')) {
+            /*$aud = AuditItem::find(1);
+            dump($aud);
+            $ite = $aud->item;
+            dump($ite);
+            $it = Item::find(1);
+            dump($it);
+            $au = $it->auditItems;
+            dump($au);*/
+            $items = Item::all()->where('item_status', 'fail')->get();
 
-                $failItems = DB::able('items')
-                    ->leftjoin('audit_items', 'items.item_id', '=', 'audit_items.item_id')
-                    ->where('item_status', 'fail')
-                    ->get();
-                return view('failItems', compact('items'))->with('i');
-            }
-            abort(404);
+            $failItems = DB::able('items')
+                ->leftjoin('audit_items', 'items.item_id', '=', 'audit_items.item_id')
+                ->where('item_status', 'fail')
+                ->get();
+            return view('failItems', compact('items'))->with('i');
         }
+        abort(404);
+    }
 
     protected function addPlace($id, Request $request)
     {
+
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
 
     }
 }

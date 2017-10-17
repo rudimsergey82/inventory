@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 class AddItemFormController extends Controller
 {
     protected $item;
+
     public function index()
     {
         /*dump($_POST);*/
@@ -46,9 +47,9 @@ class AddItemFormController extends Controller
             ]
         );
 
-/*        Place::create([
-            'place' => $_POST['place']
-        ]);*/
+        /*        Place::create([
+                    'place' => $_POST['place']
+                ]);*/
 
 
         /*$this->ItemController@store($_POST);*/
@@ -78,7 +79,8 @@ class AddItemFormController extends Controller
                         'guarantee' => $_POST['guarantee']
                     ]
                 );*/
-        return view('addItemForm')/*->with('meseger')*/;
+        return view('addItemForm')/*->with('meseger')*/
+            ;
     }
 
     /*    public function store(Request $request)
@@ -98,4 +100,9 @@ class AddItemFormController extends Controller
             $item->guarantee = $request->guarantee;
             $item->save();
         }*/
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
 }

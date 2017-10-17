@@ -79,11 +79,11 @@ class PlaceController extends Controller
                                             : <?= isset($arr[$parent_id][$i]['name_place']) ? htmlspecialchars($arr[$parent_id][$i]['name_place']) : '' ?></h4>
                                     </div>
                                     <!--<div class="panel-body">
-                                        <a href="#?action=add_place&parent_id=<?/*= $arr[$parent_id][$i]['parent_id'] */?>&place_id=<?/*= $arr[$parent_id][$i]['id'] */?>">Add
+                                        <a href="#?action=add_place&parent_id=<? /*= $arr[$parent_id][$i]['parent_id'] */ ?>&place_id=<? /*= $arr[$parent_id][$i]['id'] */ ?>">Add
                                             place</a>
-                                        <a href="#?action=edit_place&place_id=<?/*= $arr[$parent_id][$i]['id'] */?>">Edit</a>
-                                        <a href="#?action=delete_place&parent_id=<?/*= $arr[$parent_id][$i]['parent_id'] */?>&place_id=<?/*= $arr[$parent_id][$i]['id'] */?>">Delete</a>
-                                        <a href="#?action=audit_place&place_id=<?/*= $arr[$parent_id][$i]['id'] */?>">Audit</a>
+                                        <a href="#?action=edit_place&place_id=<? /*= $arr[$parent_id][$i]['id'] */ ?>">Edit</a>
+                                        <a href="#?action=delete_place&parent_id=<? /*= $arr[$parent_id][$i]['parent_id'] */ ?>&place_id=<? /*= $arr[$parent_id][$i]['id'] */ ?>">Delete</a>
+                                        <a href="#?action=audit_place&place_id=<? /*= $arr[$parent_id][$i]['id'] */ ?>">Audit</a>
                                     </div>-->
                                 </div>
                                 <?php
@@ -117,14 +117,23 @@ class PlaceController extends Controller
      */
     public function addPlace(Request $request)
     {
-        $this->validate($request, [
-            'type_place' => 'required',
-            'name_place' => 'required',
-        ]);
-        $input = $request->all();
-        $input['parent_id'] = empty($input['parent_id']) ? 0 : $input['parent_id'];
+        if (\Auth::user()->hasRole('admin')) {
+            $this->validate($request, [
+                'type_place' => 'required',
+                'name_place' => 'required',
+            ]);
+            $input = $request->all();
+            $input['parent_id'] = empty($input['parent_id']) ? 0 : $input['parent_id'];
 
-        Place::create($input);
-        return back()->with('success', 'New Place added successfully.');
+            Place::create($input);
+            return back()->with('success', 'New Place added successfully.');
+        }
+        return redirect('/')->with('error_roles', 'You have not enough rights for operations');
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+
     }
 }

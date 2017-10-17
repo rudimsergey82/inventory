@@ -31,6 +31,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Role', 'users_roles', 'user_id', 'role_id');
     }
+
     /**
      * Проверка принадлежит ли пользователь к какой либо роли
      *
@@ -41,6 +42,7 @@ class User extends Authenticatable
         $roles = $this->roles->toArray();
         return !empty($roles);
     }
+
     /**
      * Проверка имеет ли пользователь определенную роль
      *
@@ -51,6 +53,7 @@ class User extends Authenticatable
         return in_array($check, array_pluck($this->roles->toArray(), 'name'));
 
     }
+
     /**
      * Получение идентификатора роли
      *
@@ -65,6 +68,7 @@ class User extends Authenticatable
         }
         return false;
     }
+
     /**
      * Добавление роли пользователю
      *

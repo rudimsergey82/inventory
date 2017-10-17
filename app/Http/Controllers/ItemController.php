@@ -78,12 +78,13 @@ class ItemController extends Controller
 
     public function getItems()
     {
-        /*$items1 = Item::all();
-        dump($items1);*/
         $items = DB::table('places')
             ->rightjoin('audits', 'places.id', '=', 'audits.place_id')
             ->rightjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
             ->rightjoin('items', 'audit_items.item_id', '=', 'items.item_id')
+            /*->orderBy('audit_items.item_date_check', 'desc')*/
+            /*->latest()*/
+            /*->distinct()*/
             ->get();
         /*dump($items);*/
         return $items;
@@ -106,21 +107,14 @@ class ItemController extends Controller
 
     public function getItem($id)
     {
-        /*$item0 = Item::find($id);
-        dump($item0);*/
-        /*$item = DB::table('places')
-            ->rightjoin('audits', 'places.id', '=', 'audits.place_id')
-            ->rightjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
-            ->rightjoin('items', 'audit_items.item_id', '=', 'items.item_id')
-            ->where('items.item_id', '=', $id)
-            ->get();
-        dump($item);*/
         $item = DB::table('items')
             ->where('items.item_id', '=', $id)
             ->leftjoin('audit_items', 'items.item_id', '=', 'audit_items.item_id')
             ->leftjoin('audits', 'audit_items.audit_id', '=', 'audits.id')
             ->leftjoin('places', 'audits.place_id', '=', 'places.id')
-            ->get();
+            ->orderBy('audit_items.item_date_check', 'desc')
+            ->first()
+            /*->get()*/;
         /*dump($item);*/
 
         return $item;
@@ -161,8 +155,16 @@ class ItemController extends Controller
 
     protected function addAudit(Request $request)
     {
+        $input = [];
         dump($request);
-        dump(Item::find($request->item_id)->auditItems);
+        $auditOld = Item::find($request->item_id)->auditItems()->get();
+        dump($auditOld);
+        foreach ($auditOld as $value){
+            $input['audit_id'] = $value->audit_id;
+            $input['item_id'] = $value->item_id;
+        }
+        dump($input);
+        AuditItem::create(['audit_id' => $input['audit_id'], 'item_id' => $input['item_id'], 'item_status' => $request->item_status, 'item_date_check' => date('Y-m-d')]);
         return $this->showItem($request->item_id);
     }
 

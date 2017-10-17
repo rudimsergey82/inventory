@@ -39,7 +39,7 @@
                     <th class="header-table">Guarantee</th>
                     <th class="header-table">Place</th>
                 </tr>
-                @foreach($item as $value)
+                {{--@foreach($item as $value)
                     <td>{{ $value->name_item }}</td>
                     <td>{{ $value->identification_number }}</td>
                     <td>{{ $value->serial_number }}</td>
@@ -51,8 +51,19 @@
                     <td>{{ $value->guarantee }}</td>
                     <td>{{ $value->type_place }} {{ $value->name_place or 'No place'}}</td>
                     </tr>
-                @endforeach
-            </table>
+                @endforeach--}}
+                    <td>{{ $item->name_item }}</td>
+                    <td>{{ $item->identification_number }}</td>
+                    <td>{{ $item->serial_number }}</td>
+                    <td>{{ $item->specifications }}</td>
+                    <td>{{ $item->date_create }}</td>
+                    <td>{{ $item->date_buy }}</td>
+                    <td>{{ $item->coast }}</td>
+                    <td>{{ $item->date_input_use }}</td>
+                    <td>{{ $item->guarantee }}</td>
+                    <td>{{ $item->type_place }} {{ $item->name_place or 'No place'}}</td>
+                    </tr>
+                </table>
         </div>
         <div class="row">
             <div class="col-lg-6 margin-tb">
@@ -120,13 +131,6 @@
                 </div>
                 {!! Form::open(array('url' => 'item/addAudit','method'=>'POST')) !!}
                 {!! Form::select('item_status', ['new' => 'new', 'ok' => 'ok', 'fail' => 'fail'], old('item_status'), ['class'=>'form-control', 'placeholder'=>'Select status', 'style'=>'height:50px']) !!}
-                {{--<select id="select-status" name="auditItem" class="form-control"
-                        style="height:50px">
-                    <option>--Select status--</option>
-                    <option name="ok"> Ok</option>
-                    <option name="fail"> Fail</option>
-                    <option name="new">New</option>
-                </select>--}}
                 <input type="hidden" name="item_id" value="{{ $id }}">
                 <button type="submit" class="btn-lg btn-success">Submit</button>
                 {!! Form::close() !!}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AuditItem;
 use App\Item;
 use App\Place;
+use App\Audit;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\QRCodeController;
 use Illuminate\Http\Request;
@@ -16,20 +17,20 @@ class ItemController extends Controller
     protected static $items;
 
     //
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'identification' => 'required|integer|max:255|unique',
-            'serial' => 'required|string|max:255',
-            'specifications' => 'string|max:255',
-            'dt_create' => 'date',
-            'dt_buy' => 'date',
-            'coast' => 'decimal|max:100',
-            'dt_input_use' => 'date',
-            'guarantee' => 'string|max:255',
-        ]);
-    }
+    /*    protected function validator(array $data)
+        {
+            return Validator::make($data, [
+                'name' => 'required|string|max:255',
+                'identification' => 'required|integer|max:255|unique',
+                'serial' => 'required|string|max:255',
+                'specifications' => 'string|max:255',
+                'dt_create' => 'date',
+                'dt_buy' => 'date',
+                'coast' => 'decimal|max:100',
+                'dt_input_use' => 'date',
+                'guarantee' => 'string|max:255',
+            ]);
+        }*/
 
     public function store(Request $request)
     {
@@ -91,17 +92,14 @@ class ItemController extends Controller
     public function showItem($id)
     {
         if (view()->exists('showItem')) {
-            /*$item = Item::find($id);*/
             $item = $this->getItem($id);
             $num = Item::find($id);
-            /*dump($num);*/
             $audit = $num->auditItems;
-            /*dump($audit);*/
             $places = Place::all();
-            /*dump($places);*/
+            $allPlaces = Place::pluck('name_place', 'id')->all();
             $QRCodeController = new QRCodeController;
             $QR = $QRCodeController->getQRCodeItem($id);
-            return view('showItem', compact('id','item','audit','places','num', 'QR'))->with('i');
+            return view('showItem', compact('id', 'item', 'audit', 'places', 'allPlaces', 'num', 'QR'))->with('i');
         }
         abort(404);
     }
@@ -128,30 +126,45 @@ class ItemController extends Controller
         return $item;
     }
 
-        protected function failItems()
-        {
-            if (view()->exists('items')) {
-                /*$aud = AuditItem::find(1);
-                dump($aud);
-                $ite = $aud->item;
-                dump($ite);
-                $it = Item::find(1);
-                dump($it);
-                $au = $it->auditItems;
-                dump($au);*/
-                $items = Item::all()->where('item_status', 'fail')->get();
-
-                $failItems = DB::able('items')
-                    ->leftjoin('audit_items', 'items.item_id', '=', 'audit_items.item_id')
-                    ->where('item_status', 'fail')
-                    ->get();
-                return view('failItems', compact('items'))->with('i');
-            }
-            abort(404);
-        }
-
-    protected function addPlace($id, Request $request)
+    protected function failItems()
     {
+        if (view()->exists('items')) {
+            /*$aud = AuditItem::find(1);
+            dump($aud);
+            $ite = $aud->item;
+            dump($ite);
+            $it = Item::find(1);
+            dump($it);
+            $au = $it->auditItems;
+            dump($au);*/
+            $items = Item::all()->where('item_status', 'fail')->get();
 
+            $failItems = DB::able('items')
+                ->leftjoin('audit_items', 'items.item_id', '=', 'audit_items.item_id')
+                ->where('item_status', 'fail')
+                ->get();
+            return view('failItems', compact('items'))->with('i');
+        }
+        abort(404);
     }
+
+    protected function addPlace(Request $request)
+    {
+        //dump(Audit::all()->where('place_id', $request->place_id));
+        $audit = Audit::firstOrcreate(['place_id' => $request->place_id]);
+        /*dump($audit);
+        dump($audit->id);*/
+        $AuditItem = AuditItem::create(['audit_id' => $audit->id, 'item_id' => $request->item_id, 'item_status' => 'new', 'item_date_check' => date('Y-m-d')]);
+        //dump($AuditItem);
+        return $this->showItem($request->item_id);
+    }
+
+    protected function addAudit(Request $request)
+    {
+        dump($request);
+        dump(Item::find($request->item_id)->auditItems);
+        return $this->showItem($request->item_id);
+    }
+
 }
+

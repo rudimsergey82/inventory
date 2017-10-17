@@ -22,80 +22,30 @@ class AddItemFormController extends Controller
     {
         dump($_POST);
         $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'identification' => 'required|integer|max:255|unique',
-            'serial' => 'required|string|max:255',
-            'specifications' => 'string|max:255',
+            'name' => 'required|string|max:100',
+            'identification' => 'required|integer',/*|max:20|unique*/
+            'serial' => 'required|string|max:100',
+            'specifications' => 'string',
             'dt_create' => 'date',
             'dt_buy' => 'date',
-            'coast' => 'decimal|max:100',
+            /*'coast' => 'decimal',*/
             'dt_input_use' => 'date',
-            'guarantee' => 'string|max:255',
+            'guarantee' => 'string|max:10',
         ]);
         Item::create(
             [
-                'name_item' => $_POST['name'],
-                'identification_number' => $_POST['identification'],
-                'serial_number' => $_POST['serial_number'],
-                'specifications' => $_POST['specifications'],
-                'date_create' => $_POST['dt_create'],
-                'date_buy' => $_POST['dt_buy'],
-                'coast' => $_POST['coast'],
-                'date_input_use' => $_POST['dt_input_use'],
-                'guarantee' => $_POST['guarantee']
+                'name_item' => $request['name'],
+                'identification_number' => $request['identification'],
+                'serial_number' => $request['serial'],
+                'specifications' => $request['specifications'],
+                'date_create' => $request['dt_create'],
+                'date_buy' => $request['dt_buy'],
+                'coast' => $request['coast'],
+                'date_input_use' => $request['dt_input_use'],
+                'guarantee' => $request['guarantee']
             ]
         );
-
-/*        Place::create([
-            'place' => $_POST['place']
-        ]);*/
-
-
-        /*$this->ItemController@store($_POST);*/
-
-        /* $item = new Item();
-         $item->name = $_POST['name'];
-         $item->identifcation_number = $_POST['identification'];
-         $item->serial_number = $_POST['serial'];
-         $item->specifications = $_POST['specification'];
-         $item->date_create = $_POST['dt_create'];
-         $item->date_buy = $_POST['dt_buy'];
-         $item->coast = $_POST['coast'];
-         $item->date_input_use = $_POST['dt_input_use'];
-         $item->guarantee = $_POST['guarantee'];
-         $item->save();*/
-
-        /*        DB::table('items')->insert(
-                    [
-                        'name' => $_POST['name'],
-                        'identification_number' => $_POST['identification'],
-                        'serial_number' => $_POST['serial'],
-                        'specifications' => $_POST['specification'],
-                        'date_create' => $_POST['dt_create'],
-                        'date_buy' => $_POST['dt_buy'],
-                        'coast' => $_POST['coast'],
-                        'date_input_use' => $_POST['dt_input_use'],
-                        'guarantee' => $_POST['guarantee']
-                    ]
-                );*/
-        return view('addItemForm')/*->with('meseger')*/;
+        return view('addItemForm')->with('success', 'New Place added successfully.');
     }
 
-    /*    public function store(Request $request)
-        {
-    /*        Item::created(function(){
-                echo 'created!!!!';
-            });
-            $item = new Item;
-            $item->name = $request->name;
-            $item->identification_number = $request->identification;
-            $item->serial_number = $request->serial;
-            $item->specifications = $request->specifications;
-            $item->date_create = $request->dt_create;
-            $item->date_buy = $request->dt_buy;
-            $item->coast = $request->coast;
-            $item->date_input_use = $request->dt_input_use;
-            $item->guarantee = $request->guarantee;
-            $item->save();
-        }*/
 }

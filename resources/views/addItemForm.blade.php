@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label for="serial_number">Serial number:</label>
                     <input type="text" class="form-control" id="serial_number" placeholder="Enter serial number"
-                           name="serial_number">
+                           name="serial">
                 </div>
                 <div class="form-group">
                     <label for="specifications">Specifications:</label>

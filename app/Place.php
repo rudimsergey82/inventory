@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class Place extends Model
 {
@@ -32,4 +34,17 @@ class Place extends Model
     {
         return $this->hasMany('App\Audit', 'place_id', 'id');
     }
+
+    /*public function create(array $data = [])
+    {
+        parent::create();
+        dump($data);
+        $place = new Place;
+        $place->name_place = $data->name_place;
+        $place->type_place = $data->type_place;
+        $place->parent_id = $data->parent_id;
+        $place->path = (Place::find($data->parent_id)->path) . '/' . $data->name_place;
+        $place->save();
+        dump($place);
+    }*/
 }

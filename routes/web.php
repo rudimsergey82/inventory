@@ -23,11 +23,12 @@ Route::get('audit', 'AuditController@index');
 
 Route::get('/items', 'ItemController@index');
 
-Route::get('/item/{id}', 'ItemController@showItem');
-Route::post('/item/addPlace', 'ItemController@addPlace');
 Route::get('failItems', 'ItemController@failItems');
 
-Route::post('/item/addAudit', 'AuditController@addAudit');
+Route::get('/item/{id}', 'ItemController@showItem');
+Route::post('/item/addPlace', 'ItemController@addPlace');
+Route::post('/item/addAudit', 'ItemController@addAudit');
+
 Route::post('/place/addAudit', 'AuditController@addAudit');
 
 Route::get('/addItem', 'AddItemFormController@index');

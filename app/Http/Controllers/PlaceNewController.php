@@ -50,7 +50,8 @@ class PlaceNewController extends Controller
             'type_place' => 'required',
             'name_place' => 'required',
         ]);
-        Place::create($request->all());
+        $place = Place::create($request->all());
+        $id = $place->id;
         return redirect()->route('places.index')
             ->with('success', 'Place created successfully');
     }
@@ -71,79 +72,14 @@ class PlaceNewController extends Controller
         $parent = Place::find($place->parent_id);
         /*dump($parent);
         dump($id);*/
-        /*$items1 = DB::table('places')
-            ->where('places.id', '=', $id)
-            ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
-            ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
-            ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
-            ->get();
-        dump($items1);*/
         $items = DB::table('places')
             ->where('places.path', 'like', $place->path.'%' )
             ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
             ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
             ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
             ->get();
-       /* dump($items);*/
-
-        /*if (isset($childs)) {
-            $arr = [];
-            foreach ($childs as $value) {
-                $arr[] = $value->id;
-            }
-        }*/
-
-        /*$childItems = DB::table('places')
-            ->whereIn('places.id', $arr )
-            ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
-            ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
-            ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
-            ->get();*/
-
-        /*dump($tree);*/
-         /*dump($parent);*/
-
-         /*dump($items);
-         dump($childItems);*/
+        dump($items);
         return view('places.show', compact('place', 'parent', 'childs', 'items'))->with('i');
-    }
-
-    protected function getChilds($id)
-    {
-        dump($id);
-        $arr = [];
-        $childs = Place::all()->where('parent_id', $id);
-        dump($childs);
-        if (empty($childs)) {
-            dump($arr);
-            return $arr;
-        }
-       /* else/*if (isset($childs)) {*/
-        foreach ($childs as $value) {
-            $arr[] = $value->id;
-
-        }
-        dump($arr);
-            dump(collect($arr));
-        $childs = DB::table('places')
-            ->whereIn('places.id', $arr /*array(1, 2, 3)*/)->get();
-            dump($childs);
-        self::getChilds($arr);
-
-        /* }*/
-
-    }
-
-    protected function checkChilds($chis, $arr = [])
-    {
-        if (empty($arr->key)) {
-            return $arr;
-        } else {
-            foreach ($chis as $child) {
-                $arr[] = $child->id;
-                self::checkChilds($chis, $arr);
-            }
-        }
     }
 
     /**

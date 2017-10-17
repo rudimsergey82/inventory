@@ -8,7 +8,7 @@
                     <h2> Show item </h2>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ url('/items') }}"> Back</a>
+                    <a class="btn btn-success" href="{{ url('/items') }}"> Back</a>
                 </div>
             </div>
         </div>
@@ -28,8 +28,6 @@
             </style>
             <table class="table-all-items" border="1">
                 <tr class="header-table-all-items">
-                    {{--<th class="header-table">Action</th>--}}
-                    {{--<th class="header-table">Number</th>--}}
                     <th class="header-table">Name</th>
                     <th class="header-table">Identification number</th>
                     <th class="header-table">Serial number</th>
@@ -83,12 +81,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::open(array('url' => 'item/addPlace','method'=>'POST')) !!}
-                    <select id="select-places" name="places" class="form-control" style="height:50px">
-                        <option>--Select place--</option>
-                        @foreach ($places as $place)
-                            <option value="{{ $place->id }}">{{ $place->type_place }} {{$place->name_place}}</option>
-                        @endforeach
-                    </select>
+                    {!! Form::select('place_id', $allPlaces, old('place_id'), ['class'=>'form-control', 'placeholder'=>'Select Place', 'style'=>'height:50px']) !!}
                     <input type="hidden" name="item_id" value="{{ $id }}">
                     <button type="submit" class="btn-lg btn-success">Submit</button>
                     {!! Form::close() !!}
@@ -126,13 +119,15 @@
                     <h2> Add audit</h2>
                 </div>
                 {!! Form::open(array('url' => 'item/addAudit','method'=>'POST')) !!}
-                <select id="select-status" name="auditItem" class="form-control"
+                {!! Form::select('item_status', ['new' => 'new', 'ok' => 'ok', 'fail' => 'fail'], old('item_status'), ['class'=>'form-control', 'placeholder'=>'Select status', 'style'=>'height:50px']) !!}
+                {{--<select id="select-status" name="auditItem" class="form-control"
                         style="height:50px">
                     <option>--Select status--</option>
                     <option name="ok"> Ok</option>
                     <option name="fail"> Fail</option>
                     <option name="new">New</option>
-                </select>
+                </select>--}}
+                <input type="hidden" name="item_id" value="{{ $id }}">
                 <button type="submit" class="btn-lg btn-success">Submit</button>
                 {!! Form::close() !!}
 

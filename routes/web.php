@@ -24,14 +24,13 @@ Route::post('audit/addItmAdts', 'AuditController@addItmAdts')->middleware('role:
 Route::post('audit/addPlAdts', 'AuditController@addPlAdts')->middleware('role:manager');
 
 Route::get('/items', 'ItemController@index')->middleware('role:manager');
-
 Route::get('/item/{id}', 'ItemController@showItem')->middleware('role:manager');
-
 Route::post('/item/addPlace', 'ItemController@addPlace')->middleware('role:admin');
+Route::post('/item/addAudit', 'ItemController@addAudit')->middleware('role:admin');
 Route::get('failItems', 'ItemController@failItems')->middleware('role:manager');
 
-Route::post('/item/addAudit', 'AuditController@addAudit')->middleware('role:manager');
-Route::post('/place/addAudit', 'AuditController@addAudit')->middleware('role:manager');
+Route::post('/place/addAudit', 'PlaceController@addAudit')->middleware('role:manager');
+//Route::post('/place/addItem', 'PlaceController@addItem')->middleware('role:manager');
 
 Route::get('/addItem', 'AddItemFormController@index')->middleware('role:admin');
 
@@ -51,15 +50,11 @@ Route::resource('places', 'PlaceNewController');
 Route::resource('auditItems', 'AuditItemController');
 
 Route::get('/printPreview', 'PrintController@printPreview');
-
-
 Route::get('/itemPrint/{id}', 'PrintController@printPreviewItem');
 
 Route::get('/QR/{id}', 'QRCodeController@getQRCodeItem');
 
 Route::get('importExport', 'CsvController@importExport')->middleware('role:manager');
-
 Route::get('downloadExcel/{type}', 'CsvController@downloadExcel')->middleware('role:manager');
-
 Route::post('importExcel', 'CsvController@importExcel')->middleware('role:admin');
 

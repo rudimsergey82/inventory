@@ -142,22 +142,16 @@
                                         <td>{{ $item->item_date_check }}</td>
                                         <td>{{ $item->item_status }}</td>
                                         <td>
-                                            <select id="select-status" name="auditItem_{{$item->item_id}}"
-                                                    class="form-control"
-                                                    style="height:50px">
-                                                <option>--Select status--</option>
-                                                <option name="ok"> Ok</option>
-                                                <option name="fail"> Fail</option>
-                                                <option name="new">New</option>
-                                            </select>
+                                            {!! Form::select('item_status '."$item->item_id "."$item->place_id", ['new' => 'new', 'ok' => 'ok', 'fail' => 'fail'], old('item_status'), ['class'=>'form-control', 'placeholder'=>'Status', 'style'=>'height:50px']) !!}
                                         </td>
-                                        <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->id}}"
+                                        <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->item_id}}"
                                                role="button">Show</a>
                                         </td>
                                     </tr>
                                 @endif
                             @endforeach
                         </table>
+                        {{ Form::hidden('place', $place->id, array('id' => 'invisible_id')) }}
                         <button type="submit" class="btn btn-primary">Add Audits</button>
                         {!! Form::close() !!}
                     @endif

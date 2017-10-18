@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Place;
+use App\Audit;
+use App\AuditItem;
 
 class PlaceController extends Controller
 {
@@ -97,6 +99,30 @@ class PlaceController extends Controller
             </div>
         <?php }
     }
+
+
+    protected function addAudit(Request $request)
+    {
+        dump($request->request);
+        /*dump($request);*/
+        dump($request->place);
+        foreach ($request->request as $key => $value){
+            if (($key != '_token' ) && ($value !== null)){
+                dump($key);
+                $list_id = explode('_', ltrim(rtrim($key, '_'), 'item_status_'));
+                dump(Audit::where('place_id', '=', $request->place)->get());
+                $audit_id = Audit::firstOrcreate(['place_id' => $list_id['1']]);
+                dump($list_id);
+                dump($audit_id);
+                dump($value);
+                dump(AuditItem::create(['audit_id' => $audit_id->id, 'item_id' => $list_id['0'], 'item_status' => $value, 'item_date_check' => date('Y-m-d H:i:s')]));
+            }
+        }
+        return redirect()->route('places.show',$request->place)->with('success', 'Audits places created successfully');
+    }
+
+
+
 
     /**
      * Show the application dashboard.

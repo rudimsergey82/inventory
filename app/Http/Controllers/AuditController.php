@@ -17,11 +17,7 @@ class AuditController extends Controller
         if (view()->exists('audits')) {
             $auditPlaces = $this->getAuditPlaces();
             $items = $this->getAuditItems();
-            /*dump($auditPlaces);*/
-            /*foreach ($auditPlaces as $place ){
-                dump($place);
-            }*/
-           /* dump($auditPlaces->place_id);*/
+            //dump($items);
             return view('audits', compact('items', 'auditPlaces'))->with('i');
         }
         abort(404);
@@ -36,9 +32,20 @@ class AuditController extends Controller
 
     protected function getAuditItems()
     {
-        return DB::table('places')
+        /*return DB::table('places')
             ->rightjoin('audits', 'places.id', '=', 'audits.place_id')
             ->rightjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
+            ->rightjoin('items', 'audit_items.item_id', '=', 'items.item_id')
+            ->get();*/
+        return DB::table('places')
+            ->join('audits',function ($join) {
+                $join->on('places.id', '=', 'audits.place_id')
+                    ->latest();
+            })
+            ->leftjoin('audit_items',function ($join) {
+                $join->on('audits.id', '=', 'audit_items.audit_id')
+                    ->latest();
+            })
             ->rightjoin('items', 'audit_items.item_id', '=', 'items.item_id')
             ->get();
     }

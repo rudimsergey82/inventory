@@ -30,7 +30,7 @@ Route::post('/item/addAudit', 'ItemController@addAudit')->middleware('role:admin
 Route::get('failItems', 'ItemController@failItems')->middleware('role:manager');
 
 Route::post('/place/addAudit', 'PlaceController@addAudit')->middleware('role:manager');
-//Route::post('/place/addItem', 'PlaceController@addItem')->middleware('role:manager');
+Route::post('/place/addItem', 'PlaceController@addItem')->middleware('role:manager');
 
 Route::get('/addItem', 'AddItemFormController@index')->middleware('role:admin');
 
@@ -40,7 +40,7 @@ Route::get('place', 'PlaceController@index')->name('place.index')->middleware('r
 
 Route::get('/addPlace', 'AddPlaceFormController@index')->middleware('role:admin');
 
-Route::post('/addPlace', 'AddPlaceFormController@addPlace');
+//Route::post('/addPlace', 'AddPlaceFormController@addPlace');
 //Route::post('/addPlace', 'AddPlaceFormController@store');
 
 Route::get('place-tree-view', ['uses' => 'PlaceController@managePlace'])->middleware('role:manager');

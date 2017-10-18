@@ -156,9 +156,10 @@
                         {!! Form::close() !!}
                     @endif
                     <div>
-                        {!! Form::open(array('url' => 'place/addAudit','method'=>'POST')) !!}
-                        {{--{!! Form::select('id', App\Item::lists('id', 'name_item', 'identification_number'),null,['class'=>'form-control select2', 'style'=>'width: 100%;'] ) !!}
---}}                        <a class="btn btn-primary" href="#{{--{{ route('places.index',$place->id) }}--}}"> Add new items</a>
+                        {!! Form::open(array('url' => 'place/addItem','method'=>'POST')) !!}
+                        {!! Form::select('identification_item', $arrayItems, old('identification_item'), ['class'=>'form-control', 'style'=>'height:50px', 'placeholder'=>'Select new item']) !!}
+                        {{ Form::hidden('place', $place->id, array('id' => 'invisible_id')) }}
+                        <button type="submit" class="btn btn-primary">Add new items</button>
                         {!! Form::close() !!}
                     </div>
                 </div>

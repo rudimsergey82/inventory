@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Item;
 use App\Place;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -74,17 +75,22 @@ class PlaceNewController extends Controller
     {
         //
         $place = Place::find($id);
-        $childs = Place::all()->where('parent_id', /*'=', */$id);
+        $childs = Place::all()->where('parent_id', /*'=', */
+            $id);
         $parent = Place::find($place->parent_id);
-       /* dump($parent);
-        dump($id);*/
+        $allItems = Item::pluck(/*'item_id',*/
+            'name_item', 'identification_number')->all();
+        $arrayItems=[];
+        foreach ($allItems as $key => $value) {
+            $arrayItems[$key] = $value . '/' . $key;
+        }
         $items = DB::table('places')
             ->where('places.path', 'like', $place->path . '%')
             ->leftjoin('audits', 'places.id', '=', 'audits.place_id')
             ->leftjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
             ->leftjoin('items', 'audit_items.item_id', '=', 'items.item_id')
             ->get();
-        return view('places.show', compact('place', 'parent', 'childs', 'items'))->with('i');
+        return view('places.show', compact('place', 'parent', 'childs', 'items', 'arrayItems'))->with('i');
     }
 
     /**

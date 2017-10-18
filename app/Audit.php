@@ -24,7 +24,7 @@ class Audit extends Model
 
     public function auditItem()
     {
-        return $this->hasMany('App\AuditItem', 'id', 'audit_items_id');
+        return $this->hasMany('App\AuditItem', 'audit_id', 'id');
     }
 
 }

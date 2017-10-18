@@ -115,7 +115,7 @@ class PlaceNewController extends Controller
         //
         $this->validate($request, [
             'type_place' => 'required',
-            'name' => 'required',
+            'name' => 'required|unique:places|max:190',
         ]);
         Place::find($id)->update($request->all());
         return redirect()->route('places.index')

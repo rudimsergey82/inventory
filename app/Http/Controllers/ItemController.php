@@ -16,49 +16,6 @@ class ItemController extends Controller
 {
     protected static $items;
 
-    //
-    /*    protected function validator(array $data)
-        {
-            return Validator::make($data, [
-                'name' => 'required|string|max:255',
-                'identification' => 'required|integer|max:255|unique',
-                'serial' => 'required|string|max:255',
-                'specifications' => 'string|max:255',
-                'dt_create' => 'date',
-                'dt_buy' => 'date',
-                'coast' => 'decimal|max:100',
-                'dt_input_use' => 'date',
-                'guarantee' => 'string|max:255',
-            ]);
-        }*/
-
-    /*public function store(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'identification' => 'required|integer|unique:items|max:255|',
-            'serial' => 'required|string|max:255',
-            'specifications' => 'string|max:255',
-            'dt_create' => 'date',
-            'dt_buy' => 'date',
-            'coast' => 'decimal|max:100',
-            'dt_input_use' => 'date',
-            'guarantee' => 'string|max:255',
-        ]);
-
-        $item = new Item;
-        $item->name_item = $request->name;
-        $item->identification_number = $request->identification;
-        $item->serial_number = $request->serial;
-        $item->specifications = $request->specifications;
-        $item->date_create = $request->dt_create;
-        $item->date_buy = $request->dt_buy;
-        $item->coast = $request->coast;
-        $item->date_input_use = $request->dt_input_use;
-        $item->guarantee = $request->guarantee;
-        $item->save();
-    }*/
-
     public function index()
     {
         if (view()->exists('items')) {
@@ -98,14 +55,16 @@ class ItemController extends Controller
     public function showItem($id)
     {
         if (view()->exists('showItem')) {
-            $item = $this->getItem($id);
-            $num = Item::find($id);
-            $audit = $num->auditItems;
-            $places = Place::all();
+            $item = Item::find($id);
+            $audit = DB::table('audit_items')
+                ->where('item_id', $id)
+                ->leftjoin('audits', 'audit_items.audit_id', '=', 'audits.id')
+                ->leftjoin('places', 'audits.place_id', '=', 'places.id')
+                ->get();
             $allPlaces = Place::pluck('name_place', 'id')->all();
             $QRCodeController = new QRCodeController;
             $QR = $QRCodeController->getQRCodeItem($id);
-            return view('showItem', compact('id', 'item', 'audit', 'places', 'allPlaces', 'num', 'QR'))->with('i');
+            return view('showItem', compact('id', 'item', 'audit', 'allPlaces', 'QR'))->with('i');
         }
         abort(404);
     }
@@ -143,14 +102,11 @@ class ItemController extends Controller
     protected function failItems()
     {
         if (view()->exists('items')) {
-            $items = AuditItem::where('item_status', '=', 'fail')->get();
-            dump($items);
             $failItems = DB::table('items')
                 ->leftjoin('audit_items', 'items.item_id', '=', 'audit_items.item_id')
                 ->where('item_status', 'fail')
                 ->get();
-            dump($failItems);
-            return view('failItems', compact('items', 'failItems'))->with('i');
+            return view('failItems', compact('failItems'))->with('i');
         }
         abort(404);
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 16 2017 г., 10:04
+-- Время создания: Окт 17 2017 г., 14:46
 -- Версия сервера: 5.7.19
 -- Версия PHP: 7.0.21
 
@@ -31,7 +31,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `audits` (
   `id` int(10) UNSIGNED NOT NULL,
   `place_id` int(11) NOT NULL,
-  `audit_items_id` int(11) NOT NULL,
   `date_check` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -42,8 +41,13 @@ CREATE TABLE `audits` (
 -- Дамп данных таблицы `audits`
 --
 
-INSERT INTO `audits` (`id`, `place_id`, `audit_items_id`, `date_check`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 5, 1, '2017-09-01', NULL, NULL, NULL);
+INSERT INTO `audits` (`id`, `place_id`, `date_check`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 5, '2017-09-01', NULL, NULL, NULL),
+(2, 2, '2017-10-16', NULL, NULL, NULL),
+(3, 21, '2017-10-16', NULL, NULL, NULL),
+(4, 3, NULL, '2017-10-17 08:10:59', '2017-10-17 08:10:59', NULL),
+(5, 1, NULL, '2017-10-17 08:40:39', '2017-10-17 08:40:39', NULL),
+(6, 22, NULL, '2017-10-17 09:37:00', '2017-10-17 09:37:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -69,7 +73,15 @@ CREATE TABLE `audit_items` (
 INSERT INTO `audit_items` (`id`, `audit_id`, `item_id`, `item_status`, `item_date_check`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, 1, 'new', NULL, '2017-08-31 21:00:00', NULL, NULL),
 (2, 1, 5, 'new', NULL, '2017-08-31 21:00:00', NULL, NULL),
-(3, 1, 3, 'new', NULL, '2017-08-31 21:00:00', NULL, NULL);
+(3, 1, 3, 'new', NULL, '2017-08-31 21:00:00', NULL, NULL),
+(4, 2, 2, 'new', '2017-10-15 21:00:00', '2017-10-16 20:28:47', '2017-10-17 09:19:12', '2017-10-17 09:19:12'),
+(5, 2, 2, 'ok', '2017-10-16 21:00:00', '2017-10-17 06:41:16', '2017-10-17 09:19:12', '2017-10-17 09:19:12'),
+(6, 2, 2, 'fail', '2017-10-16 21:00:00', '2017-10-17 06:41:35', '2017-10-17 09:19:12', '2017-10-17 09:19:12'),
+(7, 2, 2, 'ok', '2017-10-16 21:00:00', '2017-10-17 06:52:06', '2017-10-17 09:19:12', '2017-10-17 09:19:12'),
+(8, 4, 2, 'new', '2017-10-16 21:00:00', '2017-10-17 08:10:59', '2017-10-17 09:19:12', '2017-10-17 09:19:12'),
+(9, 4, 2, 'new', '2017-10-16 21:00:00', '2017-10-17 08:11:08', '2017-10-17 09:19:12', '2017-10-17 09:19:12'),
+(10, 6, 2, 'new', '2017-10-16 21:00:00', '2017-10-17 09:49:23', '2017-10-17 09:49:23', NULL),
+(11, 6, 2, 'new', '2017-10-16 21:00:00', '2017-10-17 09:52:55', '2017-10-17 09:52:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -105,7 +117,8 @@ INSERT INTO `items` (`item_id`, `name_item`, `identification_number`, `serial_nu
 (5, 'Mouse CS-304', 1137463, 'SV0905AR11822', 'material: plastic', '2021-03-20', '2020-04-20', '365.55', '2021-04-20', 5, '2017-09-05 10:39:50', '2017-09-05 10:39:50', NULL),
 (6, 'Mouse CS-304', 1137465, 'SV0905AR11855', 'material: plastic', '2021-03-20', '2020-04-20', '365.55', '2021-04-20', 5, '2017-09-05 12:07:23', '2017-09-05 12:07:23', NULL),
 (7, 'PC14', 6623344, '66123132123', 'eeek', '2014-08-24', '2014-09-24', '10080.00', '2014-09-20', 12, NULL, NULL, NULL),
-(8, 'Mouse CS-305', 1115555, '1115555', 'material: plastic', '2021-03-20', '2021-03-20', '300.55', '2021-03-20', 5, '2017-10-14 11:13:19', '2017-10-14 11:13:19', NULL);
+(8, 'Mouse CS-305', 1115555, '1115555', 'material: plastic', '2021-03-20', '2021-03-20', '300.55', '2021-03-20', 5, '2017-10-14 11:13:19', '2017-10-14 11:13:19', NULL),
+(9, 'Mouse CS-305', 1111166, '11122323131', 'material: plastic', '2021-03-20', '2021-03-20', '300.55', '2021-03-20', 5, '2017-10-16 07:58:57', '2017-10-16 07:58:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -131,7 +144,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2017_08_29_131644_create_place_table', 4),
 (6, '2017_08_29_142449_create_place_item_table', 4),
 (7, '2017_09_01_182242_create_audits_table', 4),
-(8, '2017_09_12_122118_create_audit_items_table', 5);
+(8, '2017_09_12_122118_create_audit_items_table', 5),
+(9, '2017_10_16_181752_create_roles_table', 6);
 
 -- --------------------------------------------------------
 
@@ -145,6 +159,12 @@ CREATE TABLE `password_resets` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Дамп данных таблицы `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('Volands.ua@gmail.com', '$2y$10$QwPB51F0HK7s1t4MYIH7KOz.Sv8JiQxzlOHQszf0LSUXsRw9eO3JK', '2017-10-14 10:40:39');
 
 -- --------------------------------------------------------
 
@@ -185,9 +205,33 @@ INSERT INTO `places` (`id`, `name_place`, `type_place`, `parent_id`, `path`, `cr
 (15, 'Student_B04', 'place', 3, '/A-level/Blue/Student_B04', '2017-09-15 12:10:39', '2017-09-15 12:10:39', NULL),
 (16, 'Student_Y03', 'place', 10, '/A-level/Yellow/Student_Y03', '2017-09-28 11:46:06', '2017-10-02 05:29:41', NULL),
 (17, 'Student_Y04', 'place', 10, '/A-level/Yellow/Student_Y04', '2017-09-28 11:47:05', '2017-10-02 03:37:14', NULL),
-(18, 'Student_G01', 'place', 2, '/A-level/Green/Student_G01', '2017-10-02 03:37:39', '2017-10-02 03:37:49', '2017-10-02 03:37:49'),
-(19, 'Student_Bl01', 'place', 11, NULL, '2017-10-14 06:40:34', '2017-10-14 06:46:13', NULL),
-(20, 'Teacher_W01', 'place', 13, NULL, '2017-10-14 08:13:11', '2017-10-14 08:13:11', NULL);
+(18, 'Student_G02', 'place', 2, '/A-level/Green/Student_G02', '2017-10-02 03:37:39', '2017-10-02 03:37:49', '2017-10-02 03:37:49'),
+(19, 'Student_Bl01', 'place', 11, '/A-level/Black/Student_Bl01', '2017-10-14 06:40:34', '2017-10-14 06:46:13', NULL),
+(20, 'Teacher_W01', 'place', 13, '/A-level/White/Teacher_W01', '2017-10-14 08:13:11', '2017-10-14 08:13:11', NULL),
+(21, 'Orange', 'Room', 1, '/A-level/Orange', '2017-10-16 08:04:24', '2017-10-16 08:04:24', NULL),
+(22, 'Violet', 'Room', 1, '/A-level/Violet', '2017-10-16 09:20:10', '2017-10-16 09:20:10', NULL),
+(23, 'GG', 'Room', 1, NULL, '2017-10-17 11:43:17', '2017-10-17 11:43:17', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'admin', NULL, NULL),
+(2, 'manager', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -210,7 +254,33 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(3, 'Vladimir', 'Volands.ua@gmail.com', '$2y$10$fI6vL9UIjX82WO.iod4i9.Hx3OGAEwc9WsejVAd18bIsdZt.pxH26', NULL, '2017-10-14 10:47:21', '2017-10-14 10:47:21');
+(3, 'Volands', 'Volands.ua@gmail.com', '$2y$10$tTMR3BOG.l0VThoN7zI0OurRzRhxw6GkRl2atJZzEC2JDDz6gwFim', 'yd0J2XXDEdTDXVkZKtJidUbHQChHJN78tmQLX4E4c5eTgprNU2MefYgyQJaJ', '2017-10-17 08:04:02', '2017-10-17 08:04:02'),
+(4, 'manager', 'manager@manager.com', '$2y$10$s7gQw2VhspZxNpuyWiRjfObQuh9RaUay2zxGk2K.mGKx1jqHpypwC', 'UlxYGO31e3PjpUYVB98EHDuKUWc3bYANvv6esY7KA6FAVyoSqOVpwpVmf8HJ', '2017-10-17 07:37:33', '2017-10-17 07:37:33'),
+(6, 'sergey', 'rudimsergey@list.ru', '$2y$10$mj.2uZTkYtjJlXP8p2yhz.wLb2w1YkOOsaWRws1N1Osh7XDg/.MDK', 't1yRBbJumj8jdEv4jxDB0v3qY4Yc0YXq1DYkTItDbNQazwMbJvHyTCTu70K2', '2017-10-17 11:38:54', '2017-10-17 11:38:54');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users_roles`
+--
+
+CREATE TABLE `users_roles` (
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `role_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `users_roles`
+--
+
+INSERT INTO `users_roles` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUES
+(4, 2, NULL, NULL),
+(3, 1, NULL, NULL),
+(3, 2, NULL, NULL),
+(6, 1, NULL, NULL),
+(6, 2, NULL, NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -251,6 +321,13 @@ ALTER TABLE `password_resets`
 -- Индексы таблицы `places`
 --
 ALTER TABLE `places`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name_place` (`name_place`);
+
+--
+-- Индексы таблицы `roles`
+--
+ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -261,6 +338,13 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Индексы таблицы `users_roles`
+--
+ALTER TABLE `users_roles`
+  ADD KEY `users_roles_user_id_foreign` (`user_id`),
+  ADD KEY `users_roles_role_id_foreign` (`role_id`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -268,32 +352,48 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `audits`
 --
 ALTER TABLE `audits`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT для таблицы `audit_items`
 --
 ALTER TABLE `audit_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT для таблицы `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `item_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT для таблицы `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT для таблицы `places`
 --
 ALTER TABLE `places`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+--
+-- AUTO_INCREMENT для таблицы `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `users_roles`
+--
+ALTER TABLE `users_roles`
+  ADD CONSTRAINT `users_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `users_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

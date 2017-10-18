@@ -5,11 +5,8 @@
         <div class="row">
             <div class="col-lg-12{{-- margin-tb--}}">
                 <div class="pull-left">
-                    <h2>All items</h2>
+                    <h2>All items not found</h2>
                 </div>
-                {{--<div class="pull-right">
-                    <a class="btn btn-success" href="{{url('addItem')}}"> Create New Item</a>
-                </div>--}}
             </div>
         </div>
         <div class="body_item_form">
@@ -39,8 +36,8 @@
                     <th class="header-table">Date buy</th>
                     <th class="header-table">Coast</th>
                     <th class="header-table">Date input use</th>
-                    <th class="header-table">Guarantee</th>
-                    <th class="header-table">Place</th>
+                    <th class="header-table">Status</th>
+                    <th class="header-table">Date audit</th>
                     <th class="header-table">Action</th>
                 </tr>
                 @foreach($failItems as $item)
@@ -50,12 +47,12 @@
                         <td>{{ $item->identification_number }}</td>
                         <td>{{ $item->serial_number }}</td>
                         <td>{{ $item->specifications }}</td>
-                        <td>{{--{{ $item->date_create }}--}}</td>
-                        <td>{{--{{ $item->date_buy }}--}}</td>
-                        <td>{{--{{ $item->coast }}--}}</td>
-                        <td>{{--{{ $item->date_input_use }}--}}</td>
-                        <td>{{--{{ $item->guarantee }}--}}</td>
-                        <td>{{--{{ $item->type_place }} {{ $item->name_place or 'No place'}}--}}</td>
+                        <td>{{ $item->date_create }}</td>
+                        <td>{{ $item->date_buy }}</td>
+                        <td>{{ $item->coast }}</td>
+                        <td>{{ $item->date_input_use }}</td>
+                        <td>{{ $item->item_status }}</td>
+                        <td>{{ $item->item_date_check }}</td>
                         <td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->item_id}}"
                                role="button">V</a>
                         </td>
@@ -65,12 +62,4 @@
         </div>
     </div>
     <br>
-    {{--<div>
-        <p><a href="{{URL::to('printPreview')}}" class="btn btn-lg btn-primary">Print all items</a></p>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('.btn-primary').printPage();
-            });
-        </script>
-    </div>--}}
 @endsection

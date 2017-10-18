@@ -17,9 +17,7 @@ class CreateAuditsTable extends Migration
             $table->increments('id');
             $table->integer('place_id')->unsigned();
             $table->foreign('place_id')->references('id')->on('places');
-            /*$table->integer('audit_item_id')->unsigned();
-            $table->foreign('audit_item_id')->references('id')->on('audit_items');*/
-            $table->date('date_check')->nullable();
+            $table->date('place_date_check')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

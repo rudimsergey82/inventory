@@ -19,7 +19,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('about', 'AboutController@index');
 
-Route::get('audit', 'AuditController@index')->middleware('role:manager');
+Route::get('audit', 'AuditController@index')->name('audit')->middleware('role:manager');
+Route::post('audit/addItmAdts', 'AuditController@addItmAdts')->middleware('role:manager');
+Route::post('audit/addPlAdts', 'AuditController@addPlAdts')->middleware('role:manager');
 
 Route::get('/items', 'ItemController@index')->middleware('role:manager');
 

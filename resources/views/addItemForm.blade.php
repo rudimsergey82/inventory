@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label for="identification">Identification number:</label>
                     <input type="text" class="form-control" id="identification" placeholder="Enter identification"
-                           name="identification">
+                           name="identification_number">
                 </div>
                 <div class="form-group">
                     <label for="serial_number">Serial number:</label>

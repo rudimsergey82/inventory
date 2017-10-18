@@ -1,17 +1,5 @@
 @if(isset($auditPlaces))
-    {!! Form::open(array('url' => 'place/addAudit','method'=>'POST')) !!}
-        <div class="row">
-            <div class="col-lg-12 margin-tb">
-                {{--<div class="pull-left">
-                    <h2>Manager places</h2>
-                </div>--}}
-            </div>
-        </div>
-{{--        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif--}}
+    {!! Form::open(array('url' => 'audit/addPlAdts','method'=>'POST')) !!}
         <table class="table table-bordered">
             <tr>
                 <th>No</th>
@@ -26,8 +14,12 @@
                     <td>{{ ++$i }}</td>
                     <td>{{ $place->type_place}}</td>
                     <td>{{ $place->name_place}}</td>
-                    <td>{{ $place->date_check}}</td>
-                    <td><input type="checkbox" name="option2" value="{{$place->place_id}}"></td>
+                    <td>{{ $place->place_date_check}}</td>
+                    <td>
+                        {{--<input type="checkbox" name="{{$place->place_id}}" value="{{$place->place_id}}">--}}
+                        {!! Form::checkbox('place_'."$place->id", 1, null, ['class' => 'field']) !!}
+                        {{--{!! Form::select('place_status '."$place->id ", ['check' => 'ok'], old('place_status'), ['class'=>'form-control', 'placeholder'=>'Status', 'style'=>'height:50px']) !!}--}}
+                    </td>
                     <td>
                         <a class="btn btn-info" href="{{ route('places.show',$place->id) }}">Show</a>
                     </td>

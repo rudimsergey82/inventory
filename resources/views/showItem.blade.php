@@ -37,22 +37,10 @@
                     <th class="header-table">Coast</th>
                     <th class="header-table">Date input use</th>
                     <th class="header-table">Guarantee</th>
-                    <th class="header-table">Place</th>
+                    {{--<th class="header-table">Place</th>--}}
                 </tr>
-                @foreach($item as $value)
-                    <td>{{ $value->name_item }}</td>
-                    <td>{{ $value->identification_number }}</td>
-                    <td>{{ $value->serial_number }}</td>
-                    <td>{{ $value->specifications }}</td>
-                    <td>{{ $value->date_create }}</td>
-                    <td>{{ $value->date_buy }}</td>
-                    <td>{{ $value->coast }}</td>
-                    <td>{{ $value->date_input_use }}</td>
-                    <td>{{ $value->guarantee }}</td>
-                    <td>{{ $value->type_place }} {{ $value->name_place or 'No place'}}</td>
-                    </tr>
-                @endforeach
-                   {{-- <td>{{ $item->name_item }}</td>
+                <tr>
+                    <td>{{ $item->name_item }}</td>
                     <td>{{ $item->identification_number }}</td>
                     <td>{{ $item->serial_number }}</td>
                     <td>{{ $item->specifications }}</td>
@@ -61,21 +49,20 @@
                     <td>{{ $item->coast }}</td>
                     <td>{{ $item->date_input_use }}</td>
                     <td>{{ $item->guarantee }}</td>
-                    <td>{{ $item->type_place }} {{ $item->name_place or 'No place'}}</td>
-                    </tr>--}}
-                </table>
+                    {{-- <td>{{ $item->type_place }} {{ $item->name_place or 'No place'}}</td>--}}
+                </tr>
+            </table>
         </div>
         <div class="row">
             <div class="col-lg-6 margin-tb">
                 <div class="pull-left">
                     <div>
                         {!! $QR !!}
-                        {{--{!! QrCode::size(100)->generate(Request::url()); !!}--}}
                         <p>Scan me for inventory</p>
                     </div>
 
                     <div>
-                        <p><a href="{{URL::to('itemPrint', $num->item_id)}}" class="btn btn-lg btn-primary">Print
+                        <p><a href="{{URL::to('itemPrint', $item->item_id)}}" class="btn btn-lg btn-primary">Print
                                 item</a></p>
                         <script type="text/javascript">
                             $(document).ready(function () {
@@ -110,15 +97,15 @@
                             <th class="header-table">Number</th>
                             <th class="header-table">Status</th>
                             <th class="header-table">Date audit</th>
+                            <th class="header-table">Place</th>
                             {{--<th class="header-table">Action</th>--}}
                         </tr>
                         @foreach($audit as $value)
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $value->item_status or 'No status' }}</td>
-                                <td>{{ $value->created_at }}</td>
-                                {{--<td><a class="btn btn-lg btn-warning" href="{{url('item')}}/{{$item->item_id}}" role="button">V</a></td>--}}
-                                <td></td>
+                                <td>{{ $value->item_date_check }}</td>
+                                <td>{{ $value->type_place }}{{ $value->name_place }}</td>
                             </tr>
                         @endforeach
                     </table>

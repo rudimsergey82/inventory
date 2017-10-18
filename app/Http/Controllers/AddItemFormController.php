@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AuditItem;
 use App\Item;
 use App\Http\Controllers\ItemController;
 use App\Place;
@@ -20,22 +21,22 @@ class AddItemFormController extends Controller
 
     public function addItem(Request $request)
     {
-        //dump($_POST);
+        $audit_id = 1;
         $this->validate($request, [
             'name' => 'required|string|max:100',
-            'identification' => 'required|integer|unique:items|max:100',/**/
+            'identification_number' => 'required|integer|unique:items',
             'serial' => 'required|string|max:100',
-            'specifications' => 'string',
+            'specifications' => 'string|max:255',
             'dt_create' => 'date',
             'dt_buy' => 'date',
             /*'coast' => 'decimal',*/
             'dt_input_use' => 'date',
             'guarantee' => 'string|max:10',
         ]);
-        Item::create(
+        $item = Item::create(
             [
                 'name_item' => $request['name'],
-                'identification_number' => $request['identification'],
+                'identification_number' => $request['identification_number'],
                 'serial_number' => $request['serial'],
                 'specifications' => $request['specifications'],
                 'date_create' => $request['dt_create'],
@@ -45,7 +46,14 @@ class AddItemFormController extends Controller
                 'guarantee' => $request['guarantee']
             ]
         );
-
+        AuditItem::create(
+            [
+                'audit_id' => $audit_id,
+                'item_id' => $item->item_id,
+                'item_status' => 'new',
+                'item_date_check' => date('Y-m-d H-m-s')
+            ]
+        );
         return view('addItemForm')->with('success', 'New Place added successfully.');
     }
 

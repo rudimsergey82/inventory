@@ -17,6 +17,11 @@ class AuditController extends Controller
         if (view()->exists('audits')) {
             $auditPlaces = $this->getAuditPlaces();
             $items = $this->getAuditItems();
+            /*dump($auditPlaces);*/
+            /*foreach ($auditPlaces as $place ){
+                dump($place);
+            }*/
+           /* dump($auditPlaces->place_id);*/
             return view('audits', compact('items', 'auditPlaces'))->with('i');
         }
         abort(404);
@@ -36,6 +41,39 @@ class AuditController extends Controller
             ->rightjoin('audit_items', 'audits.id', '=', 'audit_items.audit_id')
             ->rightjoin('items', 'audit_items.item_id', '=', 'items.item_id')
             ->get();
+    }
+
+    protected function addItmAdts(Request $request)
+    {
+        foreach ($request->request as $key => $value){
+            if (($key != '_token' ) && ($value !== null)){
+                /*dump($key);*/
+                $list_id = explode('_', ltrim(rtrim($key, '_'), 'item_status_'));
+                $audit_id = Audit::firstOrcreate(['place_id' => $list_id['1']]);
+                /*dump($list_id);
+                dump($audit_id);
+                dump($value);*/
+                AuditItem::create(['audit_id' => $audit_id->id, 'item_id' => $list_id['0'], 'item_status' => $value, 'item_date_check' => date('Y-m-d H:i:s')]);
+            }
+        }
+        return redirect()->route('audit')->with('success', 'Audits items created successfully');
+    }
+
+    protected function addPlAdts(Request $request)
+    {
+        foreach ($request->request as $key => $value){
+            if (($key != '_token' ) && ($value == 1)){
+                $place_id = ltrim($key, 'place_');
+                $audit_id = Audit::create(['place_id' => $place_id, 'place_date_check' => date('Y-m-d H:i:s')]);
+                //dump($audit_id);
+                $audit = Audit::find($place_id);
+                $auditItems = $audit->auditItem;
+                foreach ($auditItems as $auditItem){
+                    AuditItem::create(['audit_id' => $audit_id->id, 'item_id' => $auditItem->item_id, 'item_status' => 'ok', 'item_date_check' => date('Y-m-d H:i:s')]);
+                }
+            }
+        }
+        return redirect()->route('audit')->with('success', 'Audits places created successfully');
     }
 
     protected function getAudits()

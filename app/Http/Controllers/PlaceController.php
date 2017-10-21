@@ -41,7 +41,6 @@ class PlaceController extends Controller
     public function getPlaces()
     {
         $places = Place::all();
-        /*dump($places);*/
         return $places;
     }
 
@@ -113,7 +112,14 @@ class PlaceController extends Controller
                 //dump($list_id);
                 //dump($audit_id);
                 //dump($value);
-                AuditItem::create(['audit_id' => $audit_id->id, 'item_id' => $list_id['0'], 'item_status' => $value, 'item_date_check' => date('Y-m-d H:i:s')]);
+                AuditItem::create(
+                    [
+                        'audit_id' => $audit_id->id,
+                        'item_id' => $list_id['0'],
+                        'item_status' => $value,
+                        'item_date_check' => date('Y-m-d H:i:s')
+                    ]
+                );
             }
         }
         return redirect()->route('places.show', $request->place)->with('success', 'Audits places created successfully');
@@ -127,16 +133,24 @@ class PlaceController extends Controller
             $place_id = $request->place;
             dump($place_id);
             $item_id = Item::where('identification_number', '=', $request->identification_item)->get();
-            foreach ($item_id as $item){
+            foreach ($item_id as $item) {
                 $id_item = $item->item_id;
             }
             dump($item_id);
             $audit_id = Audit::firstOrcreate(['place_id' => $place_id]);
             dump($audit_id->id);
             //dump($item_id->item_id);
-            AuditItem::create(['audit_id' => $audit_id->id, 'item_id' => $id_item, 'item_status' => 'ok', 'item_date_check' => date('Y-m-d H:i:s')]);
+            AuditItem::create(
+                [
+                    'audit_id' => $audit_id->id,
+                    'item_id' => $id_item,
+                    'item_status' => 'ok',
+                    'item_date_check' => date('Y-m-d H:i:s')
+                ]
+            );
         }
-        return redirect()->route('places.show', $request->place)->with('success', 'Audits places created successfully');
+        return redirect()->route('places.show', $request->place)
+            ->with('success', 'Audits places created successfully');
     }
 
 

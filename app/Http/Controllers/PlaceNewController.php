@@ -19,12 +19,9 @@ class PlaceNewController extends Controller
      */
     public function index()
     {
-        //
-        $places = Place::all()/*latest()->paginate(5)*/
-        ;
+        $places = Place::all()/*latest()->paginate(5)*/;
         return view('places.index', compact('places'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
-
     }
 
     /**
@@ -51,16 +48,15 @@ class PlaceNewController extends Controller
     {
         //
         $this->validate($request, [
-            'type_place' => 'required',
-            'name_place' => 'required|unique:places|max:190',
+            'type_place' => 'required|string',
+            'name_place' => 'required|string|unique:places|max:190',
         ]);
         $path = Place::find($request->parent_id)->path;
 
         $place = Place::create($request->all());
         $id = $place->id;
         $newPath = $path . '/' . $place->name_place;
-        dump($newPath);
-        //Place::find($id)->input($newPath);
+        Place::find($id)->update(['path' => $newPath]);
         return redirect()->route('places.index')
             ->with('success', 'Place created successfully');
     }
@@ -75,12 +71,10 @@ class PlaceNewController extends Controller
     {
         //
         $place = Place::find($id);
-        $childs = Place::all()->where('parent_id', /*'=', */
-            $id);
+        $childs = Place::all()->where('parent_id', $id);
         $parent = Place::find($place->parent_id);
-        $allItems = Item::pluck(/*'item_id',*/
-            'name_item', 'identification_number')->all();
-        $arrayItems=[];
+        $allItems = Item::pluck('name_item', 'identification_number')->all();
+        $arrayItems = [];
         foreach ($allItems as $key => $value) {
             $arrayItems[$key] = $value . '/' . $key;
         }
@@ -120,10 +114,15 @@ class PlaceNewController extends Controller
     {
         //
         $this->validate($request, [
-            'type_place' => 'required',
-            'name' => 'required|unique:places|max:190',
+            'type_place' => 'required|string',
+            'name_place' => 'required|string|max:190',/*unique:places|*/
         ]);
         Place::find($id)->update($request->all());
+        $path = Place::find($request->parent_id)->path;
+        $place = Place::find($id)->first();
+        $newPath = $path . '/' . $place->name_place;
+        Place::find($id)->update(['path' => $newPath]);
+
         return redirect()->route('places.index')
             ->with('success', 'Place updated successfully');
     }
@@ -137,6 +136,7 @@ class PlaceNewController extends Controller
     public function destroy($id)
     {
         if (\Auth::user()->hasRole('admin')) {
+            Place::find($id);
             Place::find($id)->delete();
             return redirect()->route('places.index')
                 ->with('success', 'Place deleted successfully');
@@ -147,7 +147,6 @@ class PlaceNewController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-
     }
     /*public function __construct()
     {
